@@ -12,10 +12,11 @@ class Drawable {
     this.canvasHeight = 0
   }
 
-  init (x, y) {
-    // Default variables
+  init (x, y, width, height) {
     this.x = x
     this.y = y
+    this.width = width
+    this.height = height
   }
 
   // Define abstract function to be implemented in child objects

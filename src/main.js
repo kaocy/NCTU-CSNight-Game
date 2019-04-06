@@ -2,9 +2,9 @@
 // import Game from './game'
 
 let game = new Game()
-
-window.onload = function () {
+window.init = function () {
   if (game.init()) {
+    game.ship.draw()
     animate()
   }
 }
@@ -18,6 +18,8 @@ window.onload = function () {
 function animate () {
   window.requestAnimFrame(animate)
   game.background.draw()
+  game.ship.move()
+  game.ship.bulletPool.animate()
 }
 
 /**
