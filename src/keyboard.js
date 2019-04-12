@@ -18,7 +18,7 @@ let KEY_CODES = {
  */
 let KEY_STATUS = {}
 for (let code in KEY_CODES) {
-  KEY_STATUS[ KEY_CODES[ code ]] = false
+  KEY_STATUS[KEY_CODES[code]] = false
 }
 
 /**

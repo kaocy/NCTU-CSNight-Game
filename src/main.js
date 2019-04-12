@@ -2,6 +2,7 @@
 import Game from './game'
 
 let game = new Game()
+
 window.init = function () {
   if (game.init()) {
     game.ship.draw()
