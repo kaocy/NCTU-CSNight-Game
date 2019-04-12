@@ -18,7 +18,12 @@ class Game {
     this.bgCanvas = document.getElementById('background')
     this.shipCanvas = document.getElementById('ship')
     this.mainCanvas = document.getElementById('main')
-
+    this.bgCanvas.width = window.innerWidth
+    this.bgCanvas.height = window.innerHeight
+    this.shipCanvas.width = window.innerWidth
+    this.shipCanvas.height = window.innerHeight
+    this.mainCanvas.width = window.innerWidth
+    this.mainCanvas.height = window.innerHeight
     // Test to see if canvas is supported
     if (!this.bgCanvas.getContext) return false
 
