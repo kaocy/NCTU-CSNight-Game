@@ -19,7 +19,7 @@ class Background extends Drawable {
     let canvasHeight = Background.prototype.canvasHeight
     // Pan background
     this.y += this.speed
-    this.context.drawImage(imageStorage.background, this.x, this.y)
+    this.context.drawImage(imageStorage.background, this.x, this.y, window.innerWidth, window.innerHeight)
 
     // Draw another image at the top edge of the first image
     this.context.drawImage(imageStorage.background, this.x, this.y - canvasHeight)
