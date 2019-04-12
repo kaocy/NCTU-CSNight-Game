@@ -1,5 +1,8 @@
 
-// import { Background } from './background'
+import Background from './background'
+import Ship from './ship'
+import Bullet from './bullet'
+import imageStorage from './imageStorage'
 
 /**
  * Creates the Game object which will hold all objects and data for the game.
@@ -48,4 +51,4 @@ class Game {
   }
 }
 
-// export default Game
+export default Game

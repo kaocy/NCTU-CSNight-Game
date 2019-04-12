@@ -1,4 +1,7 @@
 
+import Bullet from './bullet'
+import imageStorage from './imageStorage'
+
 /**
  * Custom Pool object. Holds Bullet objects to be managed to prevent
  * garbage collection.
@@ -63,3 +66,5 @@ class Pool {
     }
   }
 }
+
+export default Pool

@@ -1,5 +1,6 @@
 
-// import { Drawable } from './drawable'
+import Drawable from './drawable'
+import imageStorage from './imageStorage'
 
 /**
  * Creates the Background object which will become a child of
@@ -30,4 +31,4 @@ class Background extends Drawable {
   }
 }
 
-// export { Background }
+export default Background

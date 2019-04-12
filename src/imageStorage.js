@@ -34,3 +34,5 @@ let imageStorage = new function () {
   this.ship.src = '../imgs/ship.png'
   this.bullet.src = '../imgs/bullet.png'
 }()
+
+export default imageStorage

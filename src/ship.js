@@ -1,4 +1,9 @@
 
+import Drawable from './drawable'
+import Pool from './pool'
+import imageStorage from './imageStorage'
+import { KEY_STATUS } from './keyboard'
+
 /**
  * Create the Ship object that the player controls. The ship is
  * drawn on the "ship" canvas and uses dirty rectangles to move
@@ -72,3 +77,5 @@ class Ship extends Drawable {
       this.x + 33, this.y, 3)
   }
 }
+
+export default Ship

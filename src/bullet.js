@@ -1,4 +1,7 @@
 
+import Drawable from './drawable'
+import imageStorage from './imageStorage'
+
 /**
  * Creates the Bullet object which the ship fires. The bullets are
  * drawn on the "main" canvas.
@@ -46,3 +49,5 @@ class Bullet extends Drawable {
     }
   }
 }
+
+export default Bullet

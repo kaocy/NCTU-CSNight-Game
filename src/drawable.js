@@ -23,4 +23,4 @@ class Drawable {
   draw () {}
 }
 
-// export { Drawable }
+export default Drawable

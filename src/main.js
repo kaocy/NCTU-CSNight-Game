@@ -1,5 +1,5 @@
 
-// import Game from './game'
+import Game from './game'
 
 let game = new Game()
 window.init = function () {

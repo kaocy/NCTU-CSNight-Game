@@ -49,3 +49,5 @@ document.onkeyup = function (e) {
     KEY_STATUS[KEY_CODES[keyCode]] = false
   }
 }
+
+export { KEY_STATUS }

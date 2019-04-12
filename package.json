@@ -1,0 +1,21 @@
+{
+  "name": "NCTU-CS-Galaxian",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "https://github.com/lcd78706/NCTU-CS-Galaxian.git",
+  "author": "NCTU-CS",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "start": "webpack --mode development",
+    "deploy": "webpack --mode production"
+  }
+}
