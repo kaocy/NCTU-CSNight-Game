@@ -22,7 +22,7 @@ class Background extends Drawable {
     this.context.drawImage(imageStorage.background, this.x, this.y, window.innerWidth, window.innerHeight)
 
     // Draw another image at the top edge of the first image
-    this.context.drawImage(imageStorage.background, this.x, this.y - canvasHeight)
+    this.context.drawImage(imageStorage.background, this.x, this.y - canvasHeight, window.innerWidth, window.innerHeight)
 
     // If the image scrolled off the screen, reset
     if (this.y >= canvasHeight) {
