@@ -1,65 +1,66 @@
 
 import Bullet from './bullet'
+import Enemy from './enemy'
 import imageStorage from './imageStorage'
 
-/**
- * Custom Pool object. Holds Bullet objects to be managed to prevent
- * garbage collection.
- */
+// 物件池 預先建立一定數量的物件 讓會一直出現和消失的物件可以重複使用
 class Pool {
   constructor (size, type) {
-    this.size = size // Max bullets allowed in the pool
+    this.size = size // 陣列的大小
     this.pool = []
-    this.type = type
+    this.type = type // 物件的種類
   }
 
-  /**
-   * Populates the pool array with given objects
-   */
+  // 根據不同的物件種類 在陣列中塞入固定數量的物件
   init () {
     if (this.type === 'bullet') {
       for (let i = 0; i < this.size; i++) {
-        let bullet = new Bullet()
+        let bullet = new Bullet('bullet')
         bullet.init(0, 0, imageStorage.bullet.width, imageStorage.bullet.height)
         this.pool.push(bullet)
       }
     }
+    else if (this.type == 'enemy') {
+      for (let i = 0; i < this.size; i++) {
+        let enemy = new Enemy()
+        enemy.init(0, 0, imageStorage.enemy.width, imageStorage.enemy.height)
+        this.pool.push(enemy)
+      }
+    }
+    else if (this.type == 'enemyBullet') {
+      for (let i = 0; i < this.size; i++) {
+        let enemyBullet = new Bullet('enemyBullet')
+        enemyBullet.init(0, 0, imageStorage.enemyBullet.width, imageStorage.enemyBullet.height)
+        this.pool.push(enemyBullet)
+      }
+    }
   }
 
-  /**
-   * Grabs the last item in the list and initializes it and
-   * pushes it to the front of the array.
-   */
+  // 取出陣列中的最後一個元素 初始化後放到陣列最前面
   get (x, y, speed) {
     if (!this.pool[this.size - 1].alive) {
-      this.pool[this.size - 1].spawn(x, y, speed)
+      this.pool[this.size - 1].set(x, y, speed)
       this.pool.unshift(this.pool.pop())
     }
   }
 
-  /**
-   * Used for the ship to be able to get two bullets at once. If
-   * only the get() function is used twice, the ship is able to
-   * fire and only have 1 bullet spawn instead of 2.
-   */
+  // 取出陣列中的最後兩個元素 初始化後放到陣列最前面 (ship發射子彈用)
   getTwo (x1, y1, speed1, x2, y2, speed2) {
     if (!this.pool[this.size - 1].alive &&
-       !this.pool[this.size - 2].alive) {
+        !this.pool[this.size - 2].alive) {
       this.get(x1, y1, speed1)
       this.get(x2, y2, speed2)
     }
   }
 
-  /**
-   * Draws any in use Bullets. If a bullet goes off the screen,
-   * clears it and pushes it to the front of the array.
-   */
+  // 移動陣列中正在使用中的物件
   animate () {
     for (let i = 0; i < this.size; i++) {
-      // Only draw until we find a bullet that is not alive
+      // 遇到不是使用中的就跳出 (使用中的會在陣列前面)
       if (!this.pool[i].alive) break
 
-      if (this.pool[i].draw()) {
+      // 如果使用中的物件超出畫布範圍 重置後放回陣列最後面
+      if (this.pool[i].move()) {
         this.pool[i].reset()
         this.pool.push((this.pool.splice(i, 1))[0])
       }

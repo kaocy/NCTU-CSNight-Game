@@ -4,11 +4,7 @@ import Pool from './pool'
 import imageStorage from './imageStorage'
 import { KEY_STATUS } from './keyboard'
 
-/**
- * Create the Ship object that the player controls. The ship is
- * drawn on the "ship" canvas and uses dirty rectangles to move
- * around the screen.
- */
+// 玩家用的太空船 可以移動和發射子彈
 class Ship extends Drawable {
   constructor () {
     super()
@@ -23,58 +19,55 @@ class Ship extends Drawable {
     this.context.drawImage(imageStorage.ship, this.x, this.y)
   }
 
-  move () {
-    let canvasWidth = Ship.prototype.canvasWidth
-    let canvasHeight = Ship.prototype.canvasHeight
-    this._counter++
+  clear () {
+    this.context.clearRect(this.x, this.y, this.width, this.height)
+  }
 
-    // Determine if the action is move action
+  move () {
+    // 判斷是否按下方向鍵
     if (KEY_STATUS.left || KEY_STATUS.right ||
         KEY_STATUS.down || KEY_STATUS.up) {
-      // The ship moved, so erase it's current image so it can
-      // be redrawn in it's new location
-      this.context.clearRect(this.x, this.y, this.width, this.height)
+      
+      this.clear()
 
-      // Update x and y according to the direction to move and redraw the ship.
-      // Change the else if's to if statements to have diagonal movement.
+      // 根據不同的方向鍵 更新座標
       if (KEY_STATUS.left) {
         this.x -= this.speed
         if (this.x <= 0) {
           this.x = 0
         }
-      } else if (KEY_STATUS.right) {
+      }
+      else if (KEY_STATUS.right) {
         this.x += this.speed
-        if (this.x >= canvasWidth - this.width) {
-          this.x = canvasWidth - this.width
+        if (this.x >= this.canvasWidth - this.width) {
+          this.x = this.canvasWidth - this.width
         }
-      } else if (KEY_STATUS.up) {
+      }
+      else if (KEY_STATUS.up) {
         this.y -= this.speed
-        if (this.y <= canvasHeight / 4 * 3) {
-          this.y = canvasHeight / 4 * 3
+        if (this.y <= this.canvasHeight / 4 * 3) {
+          this.y = this.canvasHeight / 4 * 3
         }
-      } else if (KEY_STATUS.down) {
+      }
+      else if (KEY_STATUS.down) {
         this.y += this.speed
-        if (this.y >= canvasHeight - this.height) {
-          this.y = canvasHeight - this.height
+        if (this.y >= this.canvasHeight - this.height) {
+          this.y = this.canvasHeight - this.height
         }
       }
 
-      // Finish by redrawing the ship
       this.draw()
-    }
-
-    if (KEY_STATUS.space && this._counter >= this._fireRate) {
-      this.fire()
-      this._counter = 0
     }
   }
 
-  /**
-   * Fires two bullets
-   */
   fire () {
-    this.bulletPool.getTwo(this.x + 6, this.y, 3,
-      this.x + 33, this.y, 3)
+    this._counter++
+    // 如果按下空白鍵且在發射速度限制內 從子彈池中取出兩發子彈發射
+    if (KEY_STATUS.space && this._counter >= this._fireRate) {
+      this._counter = 0
+      this.bulletPool.getTwo(this.x + 6, this.y, 3,
+                             this.x + 33, this.y, 3)
+    }
   }
 }
 

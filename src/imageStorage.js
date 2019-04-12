@@ -1,17 +1,15 @@
 
-/**
- * Define an object to hold all our images for the game so images
- * are only ever created once. This type of object is known as a
- * singleton.
- */
+// 儲存載入的圖片 不用每次畫都重新載入
 let imageStorage = new function () {
-  // Define images
   this.background = new Image()
   this.ship = new Image()
   this.bullet = new Image()
+  this.enemy = new Image()
+  this.enemyBullet = new Image()
 
-  // Ensure all images have loaded before starting the game
-  let numImages = 3; let numLoaded = 0
+  // 全部圖片載入好才開始遊戲
+  let numImages = 5
+  let numLoaded = 0
   function imageLoaded () {
     numLoaded++
     if (numLoaded === numImages) {
@@ -19,6 +17,7 @@ let imageStorage = new function () {
     }
   }
 
+  // 載入所有需要的圖片
   this.background.onload = function () {
     imageLoaded()
   }
@@ -28,11 +27,19 @@ let imageStorage = new function () {
   this.bullet.onload = function () {
     imageLoaded()
   }
+  this.enemy.onload = function () {
+    imageLoaded()
+  }
+  this.enemyBullet.onload = function () {
+    imageLoaded()
+  }
 
-  // Set images src
+  // 設定圖片來源
   this.background.src = '../imgs/bg.png'
   this.ship.src = '../imgs/ship.png'
   this.bullet.src = '../imgs/bullet.png'
+  this.enemy.src = '../imgs/enemy.png'
+  this.enemyBullet.src = '../imgs/bullet_enemy.png'
 }()
 
 export default imageStorage

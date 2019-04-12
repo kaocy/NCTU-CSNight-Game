@@ -18,9 +18,12 @@ window.init = function () {
  */
 function animate () {
   window.requestAnimFrame(animate)
-  game.background.draw()
+  game.background.move()
   game.ship.move()
+  game.ship.fire()
   game.ship.bulletPool.animate()
+  game.enemyPool.animate()
+  game.enemyBulletPool.animate()
 }
 
 /**
@@ -40,3 +43,5 @@ window.requestAnimFrame = (function () {
     }
   )
 })()
+
+export { game }

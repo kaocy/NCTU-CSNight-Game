@@ -1,15 +1,10 @@
 
-/**
- * Creates the Drawable object which will be the base class for
- * all drawable objects in the game.
- * Sets up default variables that all child objects will inherit,
- * as well as the default functions.
- */
+// 所有畫布上會出現的物件的基底
 class Drawable {
   constructor () {
     this.speed = 0
-    this.canvasWidth = 0
-    this.canvasHeight = 0
+    // this.canvasWidth = 0
+    // this.canvasHeight = 0
   }
 
   init (x, y, width, height) {
@@ -19,7 +14,7 @@ class Drawable {
     this.height = height
   }
 
-  // Define abstract function to be implemented in child objects
+  // 抽象函式
   draw () {}
 }
 

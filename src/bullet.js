@@ -2,29 +2,23 @@
 import Drawable from './drawable'
 import imageStorage from './imageStorage'
 
-/**
- * Creates the Bullet object which the ship fires. The bullets are
- * drawn on the "main" canvas.
- */
+// 玩家與敵人太空船發射的子彈
 class Bullet extends Drawable {
-  constructor () {
+  constructor (type) {
     super()
-    this.alive = false // whether the bullet is currently in use
+    this.alive = false // 是否正在使用
+    this.type = type   // 區分我方子彈或是敵人子彈
   }
 
-  /**
-   * Sets the bullet values
-   */
-  spawn (x, y, speed) {
+  // 設定子彈座標和速度 (變成使用中)
+  set (x, y, speed) {
     this.x = x
     this.y = y
     this.speed = speed
     this.alive = true
   }
 
-  /**
-   * Resets the bullet values
-   */
+  // 重置子彈座標和速度 (變成非使用中)
   reset () {
     this.x = 0
     this.y = 0
@@ -32,19 +26,29 @@ class Bullet extends Drawable {
     this.alive = false
   }
 
-  /**
-   * Uses a "dirty rectangle" to erase the bullet and moves it.
-   * Returns true if the bullet moved off the screen,
-   * indicating that the bullet is ready to be cleared by the pool,
-   * otherwise draws the bullet.
-   */
   draw () {
+    let img = (this.type === 'bullet') ? imageStorage.bullet : imageStorage.enemyBullet
+    this.context.drawImage(img, this.x, this.y)
+  }
+
+  clear() {
     this.context.clearRect(this.x, this.y, this.width, this.height)
+  }
+
+  // 移動子彈 如果超出範圍回傳true 否則畫出子彈並回傳false
+  move () {
+    this.clear()
+    
     this.y -= this.speed
-    if (this.y <= 0 - this.height) {
+
+    if (this.type === 'bullet' && this.y <= 0 - this.height) {
       return true
-    } else {
-      this.context.drawImage(imageStorage.bullet, this.x, this.y)
+    }
+    else if (this.type === 'enemyBullet' && this.y >= this.canvasHeight) {
+      return true
+    }
+    else {
+      this.draw()
       return false
     }
   }
