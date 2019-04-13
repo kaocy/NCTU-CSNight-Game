@@ -2,46 +2,59 @@
 import Background from './background'
 import Ship from './ship'
 import Bullet from './bullet'
+import Enemy from './enemy'
+import Pool from './pool'
 import imageStorage from './imageStorage'
 
-/**
- * Creates the Game object which will hold all objects and data for the game.
- */
+// 整體遊戲 包含所有會用到的物件
 class Game {
-  /**
-   * Gets canvas information and context and sets up all game objects.
-   * Returns true if the canvas is supported and false if it is not.
-   * This is to stop the animation script from constantly running on older browsers.
-   */
   init () {
-    // Get the canvas element
     this.bgCanvas = document.getElementById('background')
     this.shipCanvas = document.getElementById('ship')
     this.mainCanvas = document.getElementById('main')
+
+    // 如果瀏覽器不支援canvas就跳出
+    if (!this.bgCanvas.getContext) return false
+
     this.bgCanvas.width = window.innerWidth
     this.bgCanvas.height = window.innerHeight
     this.shipCanvas.width = window.innerWidth
     this.shipCanvas.height = window.innerHeight
     this.mainCanvas.width = window.innerWidth
     this.mainCanvas.height = window.innerHeight
-    // Test to see if canvas is supported
-    if (!this.bgCanvas.getContext) return false
 
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
 
-    // Initialize the background object
+    // 初始遊戲背景
     this.background = new Background()
     this.background.init(0, 0)
 
-    // Initialize the ship object
+    // 初始玩家太空船
     this.ship = new Ship()
     let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width
     let shipStartY = this.shipCanvas.height / 4 * 3 + imageStorage.ship.height * 2
     this.ship.init(shipStartX, shipStartY, imageStorage.ship.width, imageStorage.ship.height)
 
-    // Initialize objects to contain their context and canvas information
+    // 初始敵人太空船池
+    this.enemyPool = new Pool(30, 'enemy')
+    this.enemyPool.init()
+    let numEnemy = 18
+    let numEnemyRow = 6
+    let enemyHeight = imageStorage.enemy.height
+    let enemyWidth = imageStorage.enemy.width
+    for (let i = 0; i < numEnemy; i++) {
+      let enemyStartX = 100 + (i % numEnemyRow) * (enemyWidth + 25)
+      let enemyStartY = -enemyHeight + Math.floor(i / numEnemyRow) * (enemyHeight * 1.5)
+      this.enemyPool.get(enemyStartX, enemyStartY, 2)
+    }
+
+    // 初始敵人子彈池
+    this.enemyBulletPool = new Pool(50, 'enemyBullet')
+    this.enemyBulletPool.init()
+
+    // 綁定canvas資訊到物件的prototype上
     Background.prototype.context = this.bgContext
     Background.prototype.canvasWidth = this.bgCanvas.width
     Background.prototype.canvasHeight = this.bgCanvas.height
@@ -51,6 +64,9 @@ class Game {
     Bullet.prototype.context = this.mainContext
     Bullet.prototype.canvasWidth = this.mainCanvas.width
     Bullet.prototype.canvasHeight = this.mainCanvas.height
+    Enemy.prototype.context = this.mainContext
+    Enemy.prototype.canvasWidth = this.mainCanvas.width
+    Enemy.prototype.canvasHeight = this.mainCanvas.height
 
     return true
   }
