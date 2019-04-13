@@ -20,9 +20,9 @@ class Enemy extends Drawable {
     this.speedX = 0
     this.speedY = speed
     this.alive = true
-    this.leftEdge = this.x - 90
-    this.rightEdge = this.x + 90
-    this.bottomEdge = this.y + 70
+    this.leftEdge = this.x - 150
+    this.rightEdge = this.x + 150
+    this.bottomEdge = this.y + 140
   }
 
   // 重置敵人座標和速度 (變成非使用中)

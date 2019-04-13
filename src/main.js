@@ -11,10 +11,9 @@ window.init = function () {
 }
 
 /**
- * The animation loop. Calls the requestAnimationFrame shim to
- * optimize the game loop and draws all game objects. This
- * function must be a gobal function and cannot be within an
- * object.
+ * The animation loop.
+ * Calls the requestAnimationFrame shim to optimize the game loop and draws all game objects.
+ * This function must be a gobal function and cannot be within an object.
  */
 function animate () {
   window.requestAnimFrame(animate)

@@ -33,8 +33,8 @@ class Game {
 
     // 初始玩家太空船
     this.ship = new Ship()
-    let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width
-    let shipStartY = this.shipCanvas.height / 4 * 3 + imageStorage.ship.height * 2
+    let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
+    let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
     this.ship.init(shipStartX, shipStartY, imageStorage.ship.width, imageStorage.ship.height)
 
     // 初始敵人太空船池
@@ -42,12 +42,16 @@ class Game {
     this.enemyPool.init()
     let numEnemy = 18
     let numEnemyRow = 6
-    let enemyHeight = imageStorage.enemy.height
     let enemyWidth = imageStorage.enemy.width
+    let enemyHeight = imageStorage.enemy.height
+    let spaceX = enemyWidth + 50
+    let spaceY = enemyHeight * 1.5
+    let firstX = (this.mainCanvas.width / 2) - (numEnemyRow / 2 - 0.5) * spaceX
+    let firstY = -enemyHeight
     for (let i = 0; i < numEnemy; i++) {
-      let enemyStartX = 100 + (i % numEnemyRow) * (enemyWidth + 25)
-      let enemyStartY = -enemyHeight + Math.floor(i / numEnemyRow) * (enemyHeight * 1.5)
-      this.enemyPool.get(enemyStartX, enemyStartY, 2)
+      let enemyStartX = firstX + (i % numEnemyRow) * spaceX
+      let enemyStartY = firstY + Math.floor(i / numEnemyRow) * spaceY
+      this.enemyPool.get(enemyStartX, enemyStartY, 3)
     }
 
     // 初始敵人子彈池
