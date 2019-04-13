@@ -22,9 +22,9 @@ class Background extends Drawable {
   }
 
   draw () {
-    this.context.drawImage(imageStorage.background, this.x, this.y)
+    this.context.drawImage(imageStorage.background, this.x, this.y, window.innerWidth, window.innerHeight)
     // 在第一張圖片上額外畫一張 達到循環捲動的效果
-    this.context.drawImage(imageStorage.background, this.x, this.y - this.canvasHeight)
+    this.context.drawImage(imageStorage.background, this.x, this.y - this.canvasHeight, window.innerWidth, window.innerHeight)
   }
 }
 

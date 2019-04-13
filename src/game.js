@@ -16,6 +16,13 @@ class Game {
     // 如果瀏覽器不支援canvas就跳出
     if (!this.bgCanvas.getContext) return false
 
+    this.bgCanvas.width = window.innerWidth
+    this.bgCanvas.height = window.innerHeight
+    this.shipCanvas.width = window.innerWidth
+    this.shipCanvas.height = window.innerHeight
+    this.mainCanvas.width = window.innerWidth
+    this.mainCanvas.height = window.innerHeight
+
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
