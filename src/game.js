@@ -4,6 +4,7 @@ import Ship from './ship'
 import Bullet from './bullet'
 import Enemy from './enemy'
 import Pool from './pool'
+import QuadTree from './quadTree'
 import imageStorage from './imageStorage'
 
 // 整體遊戲 包含所有會用到的物件
@@ -72,7 +73,29 @@ class Game {
     Enemy.prototype.canvasWidth = this.mainCanvas.width
     Enemy.prototype.canvasHeight = this.mainCanvas.height
 
+    this.quadTree = new QuadTree({
+      x: 0,
+      y: 0,
+      width: this.mainCanvas.width,
+      height: this.mainCanvas.height
+    }, 0)
+
     return true
+  }
+
+  detectCollision () {
+    let objects1 = this.quadTree.getAllObjects()
+
+    for (let i = 0; i < objects1.length; i++) {
+      let objects2 = this.quadTree.findPossibleCollided(objects1[i])
+
+      for (let j = 0; j < objects2.length; j++) {
+        if (objects1[i].isCollidedWith(objects2[j])) {
+          objects1[i].isCollided = true
+          objects2[j].isCollided = true
+        }
+      }
+    }
   }
 }
 

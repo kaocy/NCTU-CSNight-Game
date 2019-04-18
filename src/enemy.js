@@ -8,8 +8,10 @@ class Enemy extends Drawable {
   constructor () {
     super()
     this.alive = false
-    this._chance = 0  // 發射子彈的機率
-    this._percentFire = 0.01 // 發射子彈的門檻
+    this.chance = 0  // 發射子彈的機率
+    this.percentFire = 0.01 // 發射子彈的門檻
+    this.type = 'enemy'
+    this.collidableWith.push('bullet')
   }
 
   // 設定敵人座標、速度、移動範圍 (變成使用中)
@@ -33,6 +35,7 @@ class Enemy extends Drawable {
     this.speedX = 0
     this.speedY = 0
     this.alive = false
+    this.isCollided = false
   }
 
   draw () {
@@ -62,13 +65,18 @@ class Enemy extends Drawable {
       this.speedX = -this.speed
     }
 
+    // 被子彈射到就回傳false (在pool中會被重置)
+    if (this.isCollided)  return true
+
     this.draw()
 
     // 有一定機率發射子彈
-    this._chance = Math.floor(Math.random() * 101)
-    if (this._chance / 100 < this._percentFire) {
+    this.chance = Math.floor(Math.random() * 101)
+    if (this.chance / 100 < this.percentFire) {
       this.fire()
     }
+
+    return false
   }
 
   fire () {

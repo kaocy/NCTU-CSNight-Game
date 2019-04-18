@@ -20,14 +20,14 @@ class Pool {
         this.pool.push(bullet)
       }
     }
-    else if (this.type == 'enemy') {
+    else if (this.type === 'enemy') {
       for (let i = 0; i < this.size; i++) {
         let enemy = new Enemy()
         enemy.init(0, 0, imageStorage.enemy.width, imageStorage.enemy.height)
         this.pool.push(enemy)
       }
     }
-    else if (this.type == 'enemyBullet') {
+    else if (this.type === 'enemyBullet') {
       for (let i = 0; i < this.size; i++) {
         let enemyBullet = new Bullet('enemyBullet')
         enemyBullet.init(0, 0, imageStorage.enemyBullet.width, imageStorage.enemyBullet.height)
@@ -51,6 +51,17 @@ class Pool {
       this.get(x1, y1, speed1)
       this.get(x2, y2, speed2)
     }
+  }
+
+  // 回傳所有使用中的物件
+  getAliveObjects () {
+    let array = []
+    this.pool.forEach(obj => {
+      if (obj.alive) {
+        array.push(obj)
+      }
+    })
+    return array
   }
 
   // 移動陣列中正在使用中的物件

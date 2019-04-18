@@ -8,9 +8,11 @@ class Bullet extends Drawable {
     super()
     this.alive = false // 是否正在使用
     this.type = type   // 區分我方子彈或是敵人子彈
+    if (type === 'bullet')       this.collidableWith.push('enemy')
+    if (type === 'enemyBullet')  this.collidableWith.push('ship')
   }
 
-  // 設定子彈座標和速度 (變成使用中)
+  // 設定子彈 (變成使用中)
   set (x, y, speed) {
     this.x = x
     this.y = y
@@ -18,12 +20,13 @@ class Bullet extends Drawable {
     this.alive = true
   }
 
-  // 重置子彈座標和速度 (變成非使用中)
+  // 重置子彈 (變成非使用中)
   reset () {
     this.x = 0
     this.y = 0
     this.speed = 0
     this.alive = false
+    this.isCollided = false
   }
 
   draw () {
@@ -35,22 +38,24 @@ class Bullet extends Drawable {
     this.context.clearRect(this.x, this.y, this.width, this.height)
   }
 
-  // 移動子彈 如果超出範圍回傳true 否則畫出子彈並回傳false
+  // 如果發生碰撞或超出畫布範圍回傳true 否則畫出子彈並回傳false
   move () {
     this.clear()
     
     this.y -= this.speed
 
+    if (this.isCollided) {
+      return true
+    }
     if (this.type === 'bullet' && this.y <= 0 - this.height) {
       return true
     }
-    else if (this.type === 'enemyBullet' && this.y >= this.canvasHeight) {
+    if (this.type === 'enemyBullet' && this.y >= this.canvasHeight) {
       return true
     }
-    else {
-      this.draw()
-      return false
-    }
+
+    this.draw()
+    return false
   }
 }
 
