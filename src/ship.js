@@ -11,8 +11,10 @@ class Ship extends Drawable {
     this.speed = 3
     this.bulletPool = new Pool(30, 'bullet')
     this.bulletPool.init()
-    this._counter = 0
-    this._fireRate = 15
+    this.counter = 0
+    this.fireRate = 15
+    this.type = 'ship'
+    this.collidableWith.push('enemyBullet')
   }
 
   draw () {
@@ -61,10 +63,10 @@ class Ship extends Drawable {
   }
 
   fire () {
-    this._counter++
+    this.counter++
     // 如果按下空白鍵且在發射速度限制內 從子彈池中取出兩發子彈發射
-    if (KEY_STATUS.space && this._counter >= this._fireRate) {
-      this._counter = 0
+    if (KEY_STATUS.space && this.counter >= this.fireRate) {
+      this.counter = 0
       this.bulletPool.getTwo(this.x + 6, this.y, 3,
                              this.x + 33, this.y, 3)
     }

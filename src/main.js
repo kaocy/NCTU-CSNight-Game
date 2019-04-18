@@ -23,6 +23,13 @@ function animate () {
   game.ship.bulletPool.animate()
   game.enemyPool.animate()
   game.enemyBulletPool.animate()
+
+  game.quadTree.clear()
+  game.quadTree.insert(game.ship)
+  game.quadTree.insert(game.ship.bulletPool.getAliveObjects())
+  game.quadTree.insert(game.enemyPool.getAliveObjects())
+  game.quadTree.insert(game.enemyBulletPool.getAliveObjects())
+  game.detectCollision()
 }
 
 /**
