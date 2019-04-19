@@ -6,6 +6,9 @@ class Drawable {
     this.type = ''
     this.collidableWith = []
     this.isCollided = false
+
+    this.init = this.init.bind(this)
+    this.isCollidedWith = this.isCollidedWith.bind(this)
   }
 
   init (x, y, width, height) {
@@ -16,6 +19,7 @@ class Drawable {
   }
 
   isCollidedWith (object) {
+    // 不需要偵測碰撞的情形 如我方太空船和我方子彈
     if (this.collidableWith.indexOf(object.type) === -1) return false
 
     return (this.x < object.x + object.width)  &&

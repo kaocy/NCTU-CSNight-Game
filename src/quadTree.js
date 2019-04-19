@@ -19,6 +19,13 @@ class QuadTree {
     this.objects = []   // 儲存該節點的物件
     this.maxLevel = 2   // 最大分層數量(不會無限切割)
     this.maxNumObject = 10 // 每個節點的最多儲存物件數量
+
+    this.clear = this.clear.bind(this)
+    this.split = this.split.bind(this)
+    this.getIndex = this.getIndex.bind(this)
+    this.insert = this.insert.bind(this)
+    this.getAllObjects = this.getAllObjects.bind(this)
+    this.findPossibleCollided = this.findPossibleCollided.bind(this)
   }
 
   clear () {

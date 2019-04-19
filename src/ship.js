@@ -1,20 +1,30 @@
 
 import Drawable from './drawable'
-import Pool from './pool'
-import imageStorage from './imageStorage'
+import ObjectPool from './objectPool'
+import { game, imageStorage, soundStorage } from './main'
 import { KEY_STATUS } from './keyboard'
 
 // 玩家用的太空船 可以移動和發射子彈
 class Ship extends Drawable {
   constructor () {
     super()
+    this.alive = true
     this.speed = 3
-    this.bulletPool = new Pool(30, 'bullet')
-    this.bulletPool.init()
+    this.bulletPool = new ObjectPool(30, 'bullet')
     this.counter = 0
     this.fireRate = 15
     this.type = 'ship'
     this.collidableWith.push('enemyBullet')
+
+    this.draw = this.draw.bind(this)
+    this.clear = this.clear.bind(this)
+    this.move = this.move.bind(this)
+    this.fire = this.fire.bind(this)
+  }
+
+  reset () {
+    this.alive = false
+    this.isCollided = false
   }
 
   draw () {
@@ -57,7 +67,14 @@ class Ship extends Drawable {
           this.y = this.canvasHeight - this.height
         }
       }
+    }
 
+    // 暫定被敵方子彈射中就結束
+    if (this.isCollided) {
+      this.reset()
+      game.over()
+    }
+    else {
       this.draw()
     }
   }
@@ -69,6 +86,7 @@ class Ship extends Drawable {
       this.counter = 0
       this.bulletPool.getTwo(this.x + 6, this.y, 3,
                              this.x + 33, this.y, 3)
+      soundStorage.laser.get()
     }
   }
 }

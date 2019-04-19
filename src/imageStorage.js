@@ -1,45 +1,45 @@
 
 // 儲存載入的圖片 不用每次畫都重新載入
-let imageStorage = new function () {
-  this.background = new Image()
-  this.ship = new Image()
-  this.bullet = new Image()
-  this.enemy = new Image()
-  this.enemyBullet = new Image()
+class ImageStorage {
+  constructor () {
+    this.numImages = 5
+    this.numLoaded = 0
 
-  // 全部圖片載入好才開始遊戲
-  let numImages = 5
-  let numLoaded = 0
-  function imageLoaded () {
-    numLoaded++
-    if (numLoaded === numImages) {
-      window.init()
+    this.background = new Image()
+    this.ship = new Image()
+    this.bullet = new Image()
+    this.enemy = new Image()
+    this.enemyBullet = new Image()
+
+    this.background.onload = () => {
+      this.numLoaded++
     }
+    this.ship.onload = () => {
+      this.numLoaded++
+    }
+    this.bullet.onload = () => {
+      this.numLoaded++
+    }
+    this.enemy.onload = () => {
+      this.numLoaded++
+    }
+    this.enemyBullet.onload = () => {
+      this.numLoaded++
+    }
+
+    // 設定圖片來源
+    this.background.src = '../imgs/bg.png'
+    this.ship.src = '../imgs/ship.png'
+    this.bullet.src = '../imgs/bullet.png'
+    this.enemy.src = '../imgs/enemy.png'
+    this.enemyBullet.src = '../imgs/bullet_enemy.png'
+
+    this.finishLoading = this.finishLoading.bind(this)
   }
 
-  // 載入所有需要的圖片
-  this.background.onload = function () {
-    imageLoaded()
+  finishLoading () {
+    return this.numImages === this.numLoaded
   }
-  this.ship.onload = function () {
-    imageLoaded()
-  }
-  this.bullet.onload = function () {
-    imageLoaded()
-  }
-  this.enemy.onload = function () {
-    imageLoaded()
-  }
-  this.enemyBullet.onload = function () {
-    imageLoaded()
-  }
+}
 
-  // 設定圖片來源
-  this.background.src = '../imgs/bg.png'
-  this.ship.src = '../imgs/ship.png'
-  this.bullet.src = '../imgs/bullet.png'
-  this.enemy.src = '../imgs/enemy.png'
-  this.enemyBullet.src = '../imgs/bullet_enemy.png'
-}()
-
-export default imageStorage
+export default ImageStorage

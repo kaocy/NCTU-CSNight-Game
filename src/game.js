@@ -3,12 +3,24 @@ import Background from './background'
 import Ship from './ship'
 import Bullet from './bullet'
 import Enemy from './enemy'
-import Pool from './pool'
+import ObjectPool from './objectPool'
 import QuadTree from './quadTree'
-import imageStorage from './imageStorage'
+import { imageStorage, soundStorage, animate } from './main'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
+  constructor () {
+    this.init = this.init.bind(this)
+    this.start = this.start.bind(this)
+    this.over = this.over.bind(this)
+    this.restart = this.restart.bind(this)
+    this.setBackground = this.setBackground.bind(this)
+    this.setShip = this.setShip.bind(this)
+    this.setEnemy = this.setEnemy.bind(this)
+    this.setEnemyBullet = this.setEnemyBullet.bind(this)
+    this.detectCollision = this.detectCollision.bind(this)
+  }
+
   init () {
     this.bgCanvas = document.getElementById('background')
     this.shipCanvas = document.getElementById('ship')
@@ -30,34 +42,19 @@ class Game {
 
     // 初始遊戲背景
     this.background = new Background()
-    this.background.init(0, 0)
+    this.setBackground()
 
     // 初始玩家太空船
     this.ship = new Ship()
-    let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
-    let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
-    this.ship.init(shipStartX, shipStartY, imageStorage.ship.width, imageStorage.ship.height)
+    this.setShip()
 
     // 初始敵人太空船池
-    this.enemyPool = new Pool(30, 'enemy')
-    this.enemyPool.init()
-    let numEnemy = 18
-    let numEnemyRow = 6
-    let enemyWidth = imageStorage.enemy.width
-    let enemyHeight = imageStorage.enemy.height
-    let spaceX = enemyWidth + 50
-    let spaceY = enemyHeight * 1.5
-    let firstX = (this.mainCanvas.width / 2) - (numEnemyRow / 2 - 0.5) * spaceX
-    let firstY = -enemyHeight
-    for (let i = 0; i < numEnemy; i++) {
-      let enemyStartX = firstX + (i % numEnemyRow) * spaceX
-      let enemyStartY = firstY + Math.floor(i / numEnemyRow) * spaceY
-      this.enemyPool.get(enemyStartX, enemyStartY, 3)
-    }
+    this.enemyPool = new ObjectPool(30, 'enemy')
+    this.setEnemy()
 
     // 初始敵人子彈池
-    this.enemyBulletPool = new Pool(50, 'enemyBullet')
-    this.enemyBulletPool.init()
+    this.enemyBulletPool = new ObjectPool(50, 'enemyBullet')
+    this.setEnemyBullet()
 
     // 綁定canvas資訊到物件的prototype上
     Background.prototype.context = this.bgContext
@@ -73,6 +70,7 @@ class Game {
     Enemy.prototype.canvasWidth = this.mainCanvas.width
     Enemy.prototype.canvasHeight = this.mainCanvas.height
 
+    // 初始四元樹
     this.quadTree = new QuadTree({
       x: 0,
       y: 0,
@@ -80,7 +78,77 @@ class Game {
       height: this.mainCanvas.height
     }, 0)
 
+    // 起始分數
+    this.playerScore = 0
+
     return true
+  }
+
+  start () {
+    this.ship.draw()
+    soundStorage.backgroundAudio.currentTime = 0
+    soundStorage.backgroundAudio.play()
+    animate()
+  }
+
+  over () {
+    soundStorage.backgroundAudio.pause()
+    soundStorage.gameOverAudio.currentTime = 0
+    soundStorage.gameOverAudio.play()
+    document.getElementById('game-over').style.display = 'block'
+  }
+
+  // 將物件位置初始化並清空畫布後再開始
+  restart () {
+    soundStorage.gameOverAudio.pause()
+    document.getElementById('game-over').style.display = 'none'
+
+    this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
+    this.shipContext.clearRect(0, 0, this.shipCanvas.width, this.shipCanvas.height)
+    this.mainContext.clearRect(0, 0, this.mainCanvas.width, this.mainCanvas.height)
+    
+    this.setBackground()
+    this.setShip()
+    this.setEnemy()
+    this.setEnemyBullet()
+    this.quadTree.clear()
+    this.playerScore = 0
+    
+    this.start()
+  }
+
+  setBackground () {
+    this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
+  }
+
+  setShip () {
+    let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
+    let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
+    this.ship.init(shipStartX, shipStartY, imageStorage.ship.width, imageStorage.ship.height)
+    this.ship.alive = true
+    this.ship.bulletPool.init()
+  }
+
+  setEnemy () {
+    this.enemyPool.init()
+
+    let numEnemy = 18
+    let numEnemyRow = 6
+    let enemyWidth = imageStorage.enemy.width
+    let enemyHeight = imageStorage.enemy.height
+    let spaceX = enemyWidth + 50
+    let spaceY = enemyHeight * 1.5
+    let firstX = (this.mainCanvas.width / 2) - (numEnemyRow / 2 - 0.5) * spaceX
+    let firstY = -enemyHeight
+    for (let i = 0; i < numEnemy; i++) {
+      let enemyStartX = firstX + (i % numEnemyRow) * spaceX
+      let enemyStartY = firstY + Math.floor(i / numEnemyRow) * spaceY
+      this.enemyPool.get(enemyStartX, enemyStartY, 3)
+    }
+  }
+
+  setEnemyBullet () {
+    this.enemyBulletPool.init()
   }
 
   detectCollision () {
