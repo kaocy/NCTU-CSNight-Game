@@ -1,14 +1,27 @@
 
 import Game from './game'
+import ImageStorage from './imageStorage'
+import SoundStorage from './soundStorage'
 
 let game = new Game()
+let imageStorage = new ImageStorage()
+let soundStorage = new SoundStorage()
+let scoreElement = document.getElementById('score')
+let restartElement = document.getElementById('game-over')
 
-window.init = function () {
-  if (game.init()) {
-    game.ship.draw()
-    animate()
+// 確認圖片和音效都載入完成
+let checkLoading = window.setInterval(() => {
+  if (imageStorage.finishLoading() && soundStorage.finishLoading()) {
+    window.clearInterval(checkLoading)
+
+    // game初始完才開始
+    if (game.init()) {
+      game.start()
+    }
   }
-}
+}, 100)
+
+restartElement.addEventListener('click', game.restart)
 
 /**
  * The animation loop.
@@ -16,20 +29,33 @@ window.init = function () {
  * This function must be a gobal function and cannot be within an object.
  */
 function animate () {
-  window.requestAnimFrame(animate)
-  game.background.move()
-  game.ship.move()
-  game.ship.fire()
-  game.ship.bulletPool.animate()
-  game.enemyPool.animate()
-  game.enemyBulletPool.animate()
+  // 打完敵人就重置
+  if (game.enemyPool.getAliveObjects().length === 0) {
+    game.setEnemy()
+  }
 
+  // 更新四元樹內所有物件所屬的區域並偵測碰撞
   game.quadTree.clear()
   game.quadTree.insert(game.ship)
   game.quadTree.insert(game.ship.bulletPool.getAliveObjects())
   game.quadTree.insert(game.enemyPool.getAliveObjects())
   game.quadTree.insert(game.enemyBulletPool.getAliveObjects())
   game.detectCollision()
+
+  // 更新顯示的分數
+  scoreElement.innerHTML = game.playerScore
+
+  // 如果還沒死掉才會重複animate
+  if (game.ship.alive) {
+    window.requestAnimFrame(animate)
+
+    game.background.move()
+    game.ship.move()
+    game.ship.fire()
+    game.ship.bulletPool.animate()
+    game.enemyPool.animate()
+    game.enemyBulletPool.animate()
+  }
 }
 
 /**
@@ -50,4 +76,4 @@ window.requestAnimFrame = (function () {
   )
 })()
 
-export { game }
+export { game, imageStorage, soundStorage, animate }

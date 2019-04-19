@@ -18,9 +18,34 @@
         #ship {
             z-index: 0;
         }
+        .score {
+            position: absolute;
+            top: 5px;
+            left: 480px;
+            color: #FF7F00;
+            font-family: Helvetica, sans-serif;
+            cursor: default;
+        }
+        .game-over {
+            position: absolute;
+            top: 100px;
+            left: 210px;
+            color: #FF7F00;
+            font-family: Helvetica, sans-serif;
+            font-size: 30px;
+            cursor: default;
+            display: none;
+        }
+        .game-over span {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            left: 50px;
+        }
+        .game-over span:hover {
+            color: #FFD700;
+        }
     </style>
-
-    <script src="../build/bundle.js"></script>
 </head>
 
 <body>
@@ -29,10 +54,14 @@
         Your browser does not support canvas. Please try again with a different browser.
     </canvas>
     <!-- The canvas for all enemy ships and bullets -->
-    <canvas id="main">
-    </canvas>
+    <canvas id="main"></canvas>
     <!-- The canvas the ship uses (can only move up one forth the screen.) -->
-    <canvas id="ship">
-    </canvas>
+    <canvas id="ship"></canvas>
+
+    <div class="score">SCORE: <span id="score"></span></div>
+    <div class="game-over" id="game-over">
+        GAME OVER
+        <p><span>Restart</span></p>
+    </div>
 </body>
 </html>

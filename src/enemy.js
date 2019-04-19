@@ -1,6 +1,6 @@
 
 import Drawable from './drawable'
-import imageStorage from './imageStorage'
+import { imageStorage, soundStorage } from './main'
 import { game } from './main'
 
 // 敵人太空船 自動移動和發射子彈
@@ -12,6 +12,13 @@ class Enemy extends Drawable {
     this.percentFire = 0.01 // 發射子彈的門檻
     this.type = 'enemy'
     this.collidableWith.push('bullet')
+
+    this.set = this.set.bind(this)
+    this.reset = this.reset.bind(this)
+    this.draw = this.draw.bind(this)
+    this.clear = this.clear.bind(this)
+    this.move = this.move.bind(this)
+    this.fire = this.fire.bind(this)
   }
 
   // 設定敵人座標、速度、移動範圍 (變成使用中)
@@ -65,8 +72,12 @@ class Enemy extends Drawable {
       this.speedX = -this.speed
     }
 
-    // 被子彈射到就回傳false (在pool中會被重置)
-    if (this.isCollided)  return true
+    // 被子彈射到就回傳true (在pool中會被重置)
+    if (this.isCollided) {
+      game.playerScore += 10
+      soundStorage.explosion.get()
+      return true
+    }
 
     this.draw()
 
