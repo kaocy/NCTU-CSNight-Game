@@ -1,0 +1,43 @@
+@import 'macro.scss';
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: transparent;
+}
+#background {
+    z-index: -2;
+}
+#main {
+    z-index: -1;
+}
+#ship {
+    z-index: 0;
+}
+.score {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $primaryColor;
+    user-select: none;
+}
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: $primaryColor;
+    font-size: 30px;
+    user-select: none;
+    display: none;
+    span{
+        position: relative;
+        left: 50px;
+        font-size: 20px;
+        cursor: pointer;
+        &:hover {
+            color: $secondaryColor;
+        }
+    }
+}
