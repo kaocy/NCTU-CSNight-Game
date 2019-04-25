@@ -46,7 +46,7 @@ class Enemy extends Drawable {
   }
 
   draw () {
-    this.context.drawImage(imageStorage.enemy, this.x, this.y)
+    this.context.drawImage(imageStorage.enemy, this.x, this.y, window.innerWidth * 0.07, window.innerWidth * 0.07)
   }
 
   clear () {

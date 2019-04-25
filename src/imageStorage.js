@@ -28,11 +28,11 @@ class ImageStorage {
     }
 
     // 設定圖片來源
-    this.background.src = '../imgs/bg.png'
-    this.ship.src = '../imgs/ship.png'
-    this.bullet.src = '../imgs/bullet.png'
-    this.enemy.src = '../imgs/enemy.png'
-    this.enemyBullet.src = '../imgs/bullet_enemy.png'
+    this.background.src = '../assets/imgs/bg1-1.png'
+    this.ship.src = '../assets/imgs/ship.png'
+    this.bullet.src = '../assets/imgs/bullet.png'
+    this.enemy.src = '../assets/imgs/enemy.png'
+    this.enemyBullet.src = '../assets/imgs/bullet_enemy.png'
 
     this.finishLoading = this.finishLoading.bind(this)
   }

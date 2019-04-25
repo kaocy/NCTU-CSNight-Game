@@ -31,7 +31,7 @@ class ObjectPool {
     else if (this.type === 'enemy') {
       for (let i = 0; i < this.size; i++) {
         let enemy = new Enemy()
-        enemy.init(0, 0, imageStorage.enemy.width, imageStorage.enemy.height)
+        enemy.init(0, 0, window.innerWidth * 0.1 , window.innerWidth * 0.1)
         this.pool.push(enemy)
       }
     }

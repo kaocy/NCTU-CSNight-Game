@@ -124,7 +124,7 @@ class Game {
   setShip () {
     let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
     let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
-    this.ship.init(shipStartX, shipStartY, imageStorage.ship.width, imageStorage.ship.height)
+    this.ship.init(shipStartX, shipStartY, window.innerWidth * 0.1, window.innerWidth * 0.1)
     this.ship.alive = true
     this.ship.bulletPool.init()
   }
@@ -134,10 +134,10 @@ class Game {
 
     let numEnemy = 18
     let numEnemyRow = 6
-    let enemyWidth = imageStorage.enemy.width
-    let enemyHeight = imageStorage.enemy.height
-    let spaceX = enemyWidth + 50
-    let spaceY = enemyHeight * 1.5
+    let enemyWidth = window.innerWidth * 0.1
+    let enemyHeight = window.innerWidth * 0.1
+    let spaceX = enemyWidth + window.innerWidth * 0.03
+    let spaceY = enemyHeight + window.innerWidth * 0.03
     let firstX = (this.mainCanvas.width / 2) - (numEnemyRow / 2 - 0.5) * spaceX
     let firstY = -enemyHeight
     for (let i = 0; i < numEnemy; i++) {

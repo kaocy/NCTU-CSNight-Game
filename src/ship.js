@@ -29,7 +29,7 @@ class Ship extends Drawable {
   }
 
   draw () {
-    this.context.drawImage(imageStorage.ship, this.x, this.y)
+    this.context.drawImage(imageStorage.ship, this.x, this.y, window.innerWidth * 0.1, window.innerWidth * 0.1)
   }
 
   clear () {
