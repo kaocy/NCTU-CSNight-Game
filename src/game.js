@@ -1,4 +1,5 @@
 
+import Text from './text'
 import Background from './background'
 import Ship from './ship'
 import Bullet from './bullet'
@@ -22,6 +23,7 @@ class Game {
   }
 
   init () {
+    this.textCanvas = document.getElementById('text')
     this.bgCanvas = document.getElementById('background')
     this.shipCanvas = document.getElementById('ship')
     this.mainCanvas = document.getElementById('main')
@@ -29,6 +31,8 @@ class Game {
     // 如果瀏覽器不支援canvas就跳出
     if (!this.bgCanvas.getContext) return false
 
+    this.textCanvas.width = window.innerWidth
+    this.textCanvas.height = window.innerHeight
     this.bgCanvas.width = window.innerWidth
     this.bgCanvas.height = window.innerHeight
     this.shipCanvas.width = window.innerWidth
@@ -36,9 +40,32 @@ class Game {
     this.mainCanvas.width = window.innerWidth
     this.mainCanvas.height = window.innerHeight
 
+    this.textContext = this.textCanvas.getContext('2d')
+    this.textContext.font = '12px Arial'
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
+
+    // 綁定canvas資訊到物件的prototype上
+    Text.prototype.context = this.textContext
+    Text.prototype.canvasWidth = this.textCanvas.width
+    Text.prototype.canvasHeight = this.textCanvas.height
+    Background.prototype.context = this.bgContext
+    Background.prototype.canvasWidth = this.bgCanvas.width
+    Background.prototype.canvasHeight = this.bgCanvas.height
+    Ship.prototype.context = this.shipContext
+    Ship.prototype.canvasWidth = this.shipCanvas.width
+    Ship.prototype.canvasHeight = this.shipCanvas.height
+    Bullet.prototype.context = this.mainContext
+    Bullet.prototype.canvasWidth = this.mainCanvas.width
+    Bullet.prototype.canvasHeight = this.mainCanvas.height
+    Enemy.prototype.context = this.mainContext
+    Enemy.prototype.canvasWidth = this.mainCanvas.width
+    Enemy.prototype.canvasHeight = this.mainCanvas.height
+
+    // 初始對話匡
+    this.text = new Text()
+    this.setText()
 
     // 初始遊戲背景
     this.background = new Background()
@@ -55,20 +82,6 @@ class Game {
     // 初始敵人子彈池
     this.enemyBulletPool = new ObjectPool(50, 'enemyBullet')
     this.setEnemyBullet()
-
-    // 綁定canvas資訊到物件的prototype上
-    Background.prototype.context = this.bgContext
-    Background.prototype.canvasWidth = this.bgCanvas.width
-    Background.prototype.canvasHeight = this.bgCanvas.height
-    Ship.prototype.context = this.shipContext
-    Ship.prototype.canvasWidth = this.shipCanvas.width
-    Ship.prototype.canvasHeight = this.shipCanvas.height
-    Bullet.prototype.context = this.mainContext
-    Bullet.prototype.canvasWidth = this.mainCanvas.width
-    Bullet.prototype.canvasHeight = this.mainCanvas.height
-    Enemy.prototype.context = this.mainContext
-    Enemy.prototype.canvasWidth = this.mainCanvas.width
-    Enemy.prototype.canvasHeight = this.mainCanvas.height
 
     // 初始四元樹
     this.quadTree = new QuadTree({
@@ -115,6 +128,10 @@ class Game {
     this.playerScore = 0
     
     this.start()
+  }
+
+  setText () {
+    this.text.init('admamsdlamdl;a amdl;amdaldmal;mdada,da;ld,al')
   }
 
   setBackground () {
