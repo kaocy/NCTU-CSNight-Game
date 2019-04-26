@@ -41,7 +41,8 @@ class Game {
     this.mainCanvas.height = window.innerHeight
 
     this.textContext = this.textCanvas.getContext('2d')
-    this.textContext.font = '12px Arial'
+    this.textContext.font = '60px Arial'
+    this.textContext.fillStyle = '#ffffff'
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
@@ -65,7 +66,7 @@ class Game {
 
     // 初始對話匡
     this.text = new Text()
-    this.setText()
+    this.setText('對話匡一 測試測試')
 
     // 初始遊戲背景
     this.background = new Background()
@@ -130,8 +131,8 @@ class Game {
     this.start()
   }
 
-  setText () {
-    this.text.init('admamsdlamdl;a amdl;amdaldmal;mdada,da;ld,al')
+  setText (text) {
+    this.text.init(text)
   }
 
   setBackground () {
