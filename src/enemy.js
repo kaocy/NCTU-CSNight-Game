@@ -12,6 +12,7 @@ class Enemy extends Drawable {
     this.percentFire = 0.01 // 發射子彈的門檻
     this.type = 'enemy'
     this.collidableWith.push('bullet')
+    this.imageCounter = 0
 
     this.set = this.set.bind(this)
     this.reset = this.reset.bind(this)
@@ -46,7 +47,11 @@ class Enemy extends Drawable {
   }
 
   draw () {
-    this.context.drawImage(imageStorage.enemy, this.x, this.y, window.innerWidth * 0.07, window.innerWidth * 0.07)
+    // GIF效果
+    let img = (this.imageCounter < 5) ? imageStorage.enemy1 : imageStorage.enemy2
+    this.imageCounter++
+    if(this.imageCounter == 10) this.imageCounter -= 10
+    this.context.drawImage(img, this.x, this.y, window.innerWidth * 0.07, window.innerWidth * 0.07)
   }
 
   clear () {

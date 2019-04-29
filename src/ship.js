@@ -11,9 +11,9 @@ class Ship extends Drawable {
     super()
     this.alive = true
     this.speed = 3
-    this.bulletPool = new ObjectPool(30, 'bullet')
+    this.bulletPool = new ObjectPool(20000, 'bullet') //子彈數量
     this.counter = 0
-    this.fireRate = 15
+    this.fireRate = 3
     this.type = 'ship'
     this.collidableWith.push('enemyBullet')
 
