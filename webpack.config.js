@@ -39,6 +39,11 @@ module.exports = {
           },
           { loader: 'sass-loader' }
         ]
+      },
+      {
+        test: /\.(ttf|eot|png|gif|jpg|woff|woff2|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [{ loader: 'url-loader', options: { limit: 8192 } }],
+        exclude: /node_modules/
       }
     ]
   },
