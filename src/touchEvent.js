@@ -13,6 +13,7 @@ const handleLeftStart = (e) => {
   e.preventDefault()
   e.stopPropagation()
   KEY_STATUS[KEY_CODES[37]] = true
+  console.log('on on on')
 }
 
 const handleRightStart = (e) => {
