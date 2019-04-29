@@ -1,8 +1,8 @@
 
-import Game from './game'
-import ImageStorage from './imageStorage'
-import SoundStorage from './soundStorage'
-import './stylesheets/index.scss'
+import Game from 'game'
+import ImageStorage from 'imageStorage'
+import SoundStorage from 'soundStorage'
+import 'assets/stylesheets/index.scss'
 
 let game = new Game()
 let imageStorage = new ImageStorage()

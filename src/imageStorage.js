@@ -1,4 +1,10 @@
 
+import backgroundImg from 'assets/imgs/bg1-1.png'
+import shipImg from 'assets/imgs/ship.png'
+import bulletImg from 'assets/imgs/bullet.png'
+import enemyImg from 'assets/imgs/enemy.png'
+import enemyBulletImg from 'assets/imgs/bullet_enemy.png'
+
 // 儲存載入的圖片 不用每次畫都重新載入
 class ImageStorage {
   constructor () {
@@ -28,11 +34,11 @@ class ImageStorage {
     }
 
     // 設定圖片來源
-    this.background.src = '../assets/imgs/bg1-1.png'
-    this.ship.src = '../assets/imgs/ship.png'
-    this.bullet.src = '../assets/imgs/bullet.png'
-    this.enemy.src = '../assets/imgs/enemy.png'
-    this.enemyBullet.src = '../assets/imgs/bullet_enemy.png'
+    this.background.src = backgroundImg
+    this.ship.src = shipImg
+    this.bullet.src = bulletImg
+    this.enemy.src = enemyImg
+    this.enemyBullet.src = enemyBulletImg
 
     this.finishLoading = this.finishLoading.bind(this)
   }

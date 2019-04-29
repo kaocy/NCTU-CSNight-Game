@@ -1,7 +1,7 @@
 
-import Bullet from './bullet'
-import Enemy from './enemy'
-import { imageStorage } from './main'
+import Bullet from 'bullet'
+import Enemy from 'enemy'
+import { imageStorage } from 'main'
 
 // 物件池 預先建立一定數量的物件 讓會一直出現和消失的物件可以重複使用
 class ObjectPool {

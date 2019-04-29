@@ -1,9 +1,9 @@
 
-import Drawable from './drawable'
-import ObjectPool from './objectPool'
-import { game, imageStorage, soundStorage } from './main'
-import { KEY_STATUS } from './keyboard'
-import './touchEvent'
+import Drawable from 'drawable'
+import ObjectPool from 'objectPool'
+import { game, imageStorage, soundStorage } from 'main'
+import { KEY_STATUS } from 'keyboard'
+import 'touchEvent'
 
 // 玩家用的太空船 可以移動和發射子彈
 class Ship extends Drawable {

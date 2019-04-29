@@ -1,12 +1,12 @@
 
-import Text from './text'
-import Background from './background'
-import Ship from './ship'
-import Bullet from './bullet'
-import Enemy from './enemy'
-import ObjectPool from './objectPool'
-import QuadTree from './quadTree'
-import { imageStorage, soundStorage, animate } from './main'
+import Text from 'text'
+import Background from 'background'
+import Ship from 'ship'
+import Bullet from 'bullet'
+import Enemy from 'enemy'
+import ObjectPool from 'objectPool'
+import QuadTree from 'quadTree'
+import { imageStorage, soundStorage, animate } from 'main'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {

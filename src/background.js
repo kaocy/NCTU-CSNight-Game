@@ -1,6 +1,6 @@
 
-import Drawable from './drawable'
-import { imageStorage } from './main'
+import Drawable from 'drawable'
+import { imageStorage } from 'main'
 
 // 遊戲的背景畫面 利用畫兩張圖片的局部範圍 達到捲動的效果
 class Background extends Drawable {
