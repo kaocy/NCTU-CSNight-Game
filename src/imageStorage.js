@@ -1,14 +1,20 @@
 
+import backgroundImg from 'assets/imgs/bg1-1.png'
+import shipImg from 'assets/imgs/ship.png'
+import bulletImg from 'assets/imgs/bullet.png'
+import enemy1Img from 'assets/imgs/book1.png'
+import enemy2Img from 'assets/imgs/book2.png'
+import enemyBulletImg from 'assets/imgs/bullet_enemy.png'
+
 // 儲存載入的圖片 不用每次畫都重新載入
 class ImageStorage {
   constructor () {
-    this.numImages = 7
+    this.numImages = 6
     this.numLoaded = 0
 
     this.background = new Image()
     this.ship = new Image()
     this.bullet = new Image()
-    this.enemy = new Image()
     this.enemy1 = new Image()
     this.enemy2 = new Image()
     this.enemyBullet = new Image()
@@ -22,9 +28,6 @@ class ImageStorage {
     this.bullet.onload = () => {
       this.numLoaded++
     }
-    this.enemy.onload = () => {
-      this.numLoaded++
-    }
     this.enemy1.onload = () => {
       this.numLoaded++
     }
@@ -36,13 +39,12 @@ class ImageStorage {
     }
 
     // 設定圖片來源
-    this.background.src = '../assets/imgs/bg1-1.png'
-    this.ship.src = '../assets/imgs/ship.png'
-    this.bullet.src = '../assets/imgs/bullet.png'
-    this.enemy.src = '../assets/imgs/book1.png'
-    this.enemy1.src = '../assets/imgs/book1.png'
-    this.enemy2.src = '../assets/imgs/book2.png'
-    this.enemyBullet.src = '../assets/imgs/bullet_enemy.png'
+    this.background.src = backgroundImg
+    this.ship.src = shipImg
+    this.bullet.src = bulletImg
+    this.enemy1.src = enemy1Img
+    this.enemy2.src = enemy2Img
+    this.enemyBullet.src = enemyBulletImg
 
     this.finishLoading = this.finishLoading.bind(this)
   }

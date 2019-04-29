@@ -1,17 +1,18 @@
 
-import Text from './text'
-import Background from './background'
-import Ship from './ship'
-import Bullet from './bullet'
-import Enemy from './enemy'
-import ObjectPool from './objectPool'
-import QuadTree from './quadTree'
-import { imageStorage, soundStorage, animate } from './main'
+import Text from 'text'
+import Background from 'background'
+import Ship from 'ship'
+import Bullet from 'bullet'
+import Enemy from 'enemy'
+import ObjectPool from 'objectPool'
+import QuadTree from 'quadTree'
+import { imageStorage, soundStorage, animate } from 'main'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
   constructor () {
     this.init = this.init.bind(this)
+    this.introduce = this.introduce.bind(this)
     this.start = this.start.bind(this)
     this.over = this.over.bind(this)
     this.restart = this.restart.bind(this)
@@ -41,7 +42,8 @@ class Game {
     this.mainCanvas.height = window.innerHeight
 
     this.textContext = this.textCanvas.getContext('2d')
-    this.textContext.font = '12px Arial'
+    this.textContext.font = '60px Arial'
+    this.textContext.fillStyle = 'red'
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
@@ -62,10 +64,6 @@ class Game {
     Enemy.prototype.context = this.mainContext
     Enemy.prototype.canvasWidth = this.mainCanvas.width
     Enemy.prototype.canvasHeight = this.mainCanvas.height
-
-    // 初始對話匡
-    this.text = new Text()
-    this.setText()
 
     // 初始遊戲背景
     this.background = new Background()
@@ -95,6 +93,14 @@ class Game {
     this.playerScore = 0
 
     return true
+  }
+
+  introduce () {
+    let text = new Text()
+    let text2 = new Text()
+    text.init('故事介紹: 從前從前...', text2.register)
+    text2.init('對話匡測試', this.start)
+    text.register()
   }
 
   start () {
@@ -128,10 +134,6 @@ class Game {
     this.playerScore = 0
     
     this.start()
-  }
-
-  setText () {
-    this.text.init('admamsdlamdl;a amdl;amdaldmal;mdada,da;ld,al')
   }
 
   setBackground () {

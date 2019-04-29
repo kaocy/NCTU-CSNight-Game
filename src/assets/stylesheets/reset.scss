@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'k8x12';
+    src: url(../../assets/font/k8x12.ttf) format('truetype');
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+*{
+    font-family: 'k8x12', Helvetica, sans-serif;
+ }

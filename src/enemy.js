@@ -1,7 +1,6 @@
 
-import Drawable from './drawable'
-import { imageStorage, soundStorage } from './main'
-import { game } from './main'
+import Drawable from 'drawable'
+import { imageStorage, soundStorage, game } from 'main'
 
 // 敵人太空船 自動移動和發射子彈
 class Enemy extends Drawable {

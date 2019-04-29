@@ -1,4 +1,9 @@
 
+import backgroundAudio from 'assets/sounds/kick_shock.wav'
+import gameOverAudio from 'assets/sounds/game_over.wav'
+import laserAudio from 'assets/sounds/laser.wav'
+import explosionAudio from 'assets/sounds/explosion.wav'
+
 // 音效池
 class SoundPool {
   constructor (size, type) {
@@ -15,7 +20,7 @@ class SoundPool {
   init () {
     if (this.type === 'laser') {
       for (let i = 0; i < this.size; i++) {
-        let laser = new Audio('../sounds/laser.wav')
+        let laser = new Audio(laserAudio)
         laser.volume = .12
         laser.load()
         this.pool.push(laser)
@@ -23,7 +28,7 @@ class SoundPool {
     }
     else if (this.type === 'explosion') {
       for (let i = 0; i < this.size; i++) {
-        let explosion = new Audio('../sounds/explosion.wav')
+        let explosion = new Audio(explosionAudio)
         explosion.volume = .12;
         explosion.load()
         this.pool.push(explosion)
@@ -48,11 +53,11 @@ class SoundStorage {
     this.explosion = new SoundPool(20, 'explosion')
     this.explosion.init()
 
-    this.backgroundAudio = new Audio('../sounds/kick_shock.wav')
+    this.backgroundAudio = new Audio(backgroundAudio)
     this.backgroundAudio.loop = true
     this.backgroundAudio.volume = .25
     this.backgroundAudio.load()
-    this.gameOverAudio = new Audio('../sounds/game_over.wav')
+    this.gameOverAudio = new Audio(gameOverAudio)
     this.gameOverAudio.loop = true
     this.gameOverAudio.volume = .25
     this.gameOverAudio.load()

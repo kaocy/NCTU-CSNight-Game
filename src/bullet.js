@@ -1,6 +1,6 @@
 
-import Drawable from './drawable'
-import { imageStorage } from './main'
+import Drawable from 'drawable'
+import { imageStorage } from 'main'
 
 // 玩家與敵人太空船發射的子彈
 class Bullet extends Drawable {

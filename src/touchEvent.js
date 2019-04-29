@@ -1,4 +1,5 @@
-import { KEY_STATUS } from './keyboard'
+
+import { KEY_STATUS } from 'keyboard'
 
 let KEY_CODES = {
   32: 'space',
@@ -8,11 +9,11 @@ let KEY_CODES = {
   40: 'down'
 }
 
-
 const handleLeftStart = (e) => {
   e.preventDefault()
   e.stopPropagation()
   KEY_STATUS[KEY_CODES[37]] = true
+  console.log('on on on')
 }
 
 const handleRightStart = (e) => {

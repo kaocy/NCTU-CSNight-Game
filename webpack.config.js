@@ -39,8 +39,20 @@ module.exports = {
           },
           { loader: 'sass-loader' }
         ]
+      },
+      {
+        test: /\.(ttf|eot|png|gif|jpg|woff|woff2|svg|wav)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [{ loader: 'url-loader', options: { limit: 8192 } }],
+        exclude: /node_modules/
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js'],
+    modules: [Path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      assets: Path.join(__dirname, 'src/assets')
+    }
   },
   devServer: {
     inline: true,
