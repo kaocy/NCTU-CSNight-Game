@@ -21,6 +21,10 @@ canvas {
     transform: translateX(-50%);
     color: $primaryColor;
     user-select: none;
+    font-size: 30px;
+    #score{
+        font-size: 30px;
+    }
 }
 .game-over {
     position: absolute;
@@ -32,8 +36,8 @@ canvas {
     user-select: none;
     display: none;
     span{
-        position: relative;
-        left: 50px;
+        display: block;
+        text-align: center;
         font-size: 20px;
         cursor: pointer;
         &:hover {
