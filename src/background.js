@@ -10,10 +10,12 @@ class Background extends Drawable {
     this.speed = 1 // 設定背景圖片捲動速度
     this.roll = roll
 
+
     this.move = this.move.bind(this)
     this.draw = this.draw.bind(this)
   }
 
+  // 遊戲背景不需要捲動
   move () {
     if (this.roll) {
       this.y += this.speed
@@ -23,13 +25,11 @@ class Background extends Drawable {
         this.y = 0
       }
     }
-
     this.draw()
   }
 
   draw () {
     this.context.drawImage(imageStorage.background, this.x, this.y, this.canvasWidth, this.canvasHeight)
-
     if (this.roll) {
       // 在第一張圖片上額外畫一張 達到循環捲動的效果
       this.context.drawImage(imageStorage.background, this.x, this.y - this.canvasHeight, this.canvasWidth, this.canvasHeight)

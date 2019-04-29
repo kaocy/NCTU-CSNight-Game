@@ -143,7 +143,7 @@ class Game {
   setShip () {
     let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
     let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
-    this.ship.init(shipStartX, shipStartY, window.innerWidth * 0.1, window.innerWidth * 0.1)
+    this.ship.init(shipStartX, shipStartY, window.innerWidth * 0.16, window.innerHeight * 0.125)
     this.ship.alive = true
     this.ship.bulletPool.init()
   }
