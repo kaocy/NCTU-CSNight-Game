@@ -17,7 +17,7 @@ let checkLoading = window.setInterval(() => {
 
     // game初始完才開始
     if (game.init()) {
-      game.start()
+      game.introduce()
     }
   }
 }, 100)
