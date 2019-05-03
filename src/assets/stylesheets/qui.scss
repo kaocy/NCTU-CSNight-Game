@@ -1,0 +1,99 @@
+$PlayerColor: rgb(117, 137, 165);
+$NPCColor:rgb(192, 132, 132);
+#quickThink{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.8); 
+    color: white;
+    /************ need to be changed *******************/
+    z-index: 1080; 
+    /***************************************************/
+    #quiHeader{
+        $h:15vh;
+        width: inherit;
+        height: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .quiPlayer{
+            width: $h;
+            height: $h;
+            border: 5px solid white;
+            &:first-child{
+                left: 10%;
+                background: $PlayerColor;
+            }
+            &:last-child{
+                right: 10%;
+                background: $NPCColor;
+            }
+        }
+        #quiTimer{
+            width: $h;
+            height: $h;
+            border-radius: $h / 2;
+            line-height: $h;
+            font-size: 6rem;
+            text-align: center;
+            user-select: none;
+        }
+    }
+    #quiContent{
+        margin-top: 10%;
+        font-size: 1.5rem;
+        #quiQuestion{
+            width: 75%;
+            margin: 0 auto;
+        }
+        #quiOptions{
+            margin-top: 12%;
+            .quiOption{
+                $color:rgb(238, 238, 238);
+                color: #555;
+                width: 50%;
+                padding: 1% 4%;
+                background: $color;
+                margin: 2% auto;
+                border-radius: 2px;
+                text-align: center;
+                cursor: pointer;
+                &:hover{
+                    transition: .3s;
+                    background: darken($color,10);
+                }
+            }
+        }
+    }
+    .quiBar{
+        position: absolute;
+        top: 50%;
+        
+        width: 25px;
+        border: 2px solid transparent;
+        border-radius: 2px;
+        &::before{
+            content: "";
+            position: relative;
+            display: block;
+            left: 0;
+            top: 0;
+            border: 2px solid rgba(255,255,255,.4);
+            border-radius: 2px;
+            width: 100%;
+            height: 35vh;
+        }
+        &:first-child{
+            left: 7%;
+            // background: $PlayerColor;
+        }
+        &:last-child{
+            right: 7%;
+            // background: $NPCColor;
+        }
+    }
+
+}
