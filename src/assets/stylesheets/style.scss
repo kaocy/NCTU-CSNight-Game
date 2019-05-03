@@ -34,6 +34,10 @@ canvas {
     z-index: 5;
     color: white;
 }
+#text-background {
+    z-index: -3;
+    background-color: black;
+}
 .score {
     position: absolute;
     top: 5px;
