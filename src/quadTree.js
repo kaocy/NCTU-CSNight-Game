@@ -13,11 +13,11 @@
  */
 class QuadTree {
   constructor (bound = { x: 0, y: 0, width: 0, height: 0 }, level = 0) {
-    this.bound = bound  // 區域座標和寬高
-    this.level = level  // 是第幾層
-    this.children = []  // 儲存四個子節點
-    this.objects = []   // 儲存該節點的物件
-    this.maxLevel = 2   // 最大分層數量(不會無限切割)
+    this.bound = bound // 區域座標和寬高
+    this.level = level // 是第幾層
+    this.children = [] // 儲存四個子節點
+    this.objects = [] // 儲存該節點的物件
+    this.maxLevel = 2 // 最大分層數量(不會無限切割)
     this.maxNumObject = 10 // 每個節點的最多儲存物件數量
 
     this.clear = this.clear.bind(this)
@@ -66,7 +66,7 @@ class QuadTree {
       y: this.bound.y + subHeight,
       width: subWidth,
       height: subHeight
-    }, this.level + 1)    
+    }, this.level + 1)
   }
 
   // 判斷object屬於當前四個區域的哪一個 如果橫跨區域回傳-1
@@ -82,12 +82,12 @@ class QuadTree {
     let atLeft = (object.x + object.width < midPoint.x)
     let atRight = (object.x > midPoint.x)
 
-    if (atTop && atLeft)     return 0
-    if (atTop && atRight)    return 1
-    if (atBottom && atLeft)  return 2
+    if (atTop && atLeft) return 0
+    if (atTop && atRight) return 1
+    if (atBottom && atLeft) return 2
     if (atBottom && atRight) return 3
 
-    return -1;
+    return -1
   }
 
   // 把object放進該節點

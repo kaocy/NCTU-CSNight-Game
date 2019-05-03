@@ -7,9 +7,9 @@ class Bullet extends Drawable {
   constructor (type) {
     super()
     this.alive = false // 是否正在使用
-    this.type = type   // 區分我方子彈或是敵人子彈
-    if (type === 'bullet')       this.collidableWith.push('enemy')
-    if (type === 'enemyBullet')  this.collidableWith.push('ship')
+    this.type = type // 區分我方子彈或是敵人子彈
+    if (type === 'bullet') this.collidableWith.push('enemy')
+    if (type === 'enemyBullet') this.collidableWith.push('ship')
 
     this.set = this.set.bind(this)
     this.reset = this.reset.bind(this)
@@ -41,14 +41,14 @@ class Bullet extends Drawable {
     this.context.drawImage(img, this.x, this.y)
   }
 
-  clear() {
+  clear () {
     this.context.clearRect(this.x, this.y, this.width, this.height)
   }
 
   // 如果發生碰撞或超出畫布範圍回傳true 否則畫出子彈並回傳false
   move () {
     this.clear()
-    
+
     this.y -= this.speed
 
     if (this.isCollided) {

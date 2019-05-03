@@ -6,6 +6,7 @@ import Bullet from 'bullet'
 import Enemy from 'enemy'
 import ObjectPool from 'objectPool'
 import QuadTree from 'quadTree'
+import QuiThink from 'quiThink'
 import { imageStorage, soundStorage, animate } from 'main'
 
 // 整體遊戲 包含所有會用到的物件
@@ -101,6 +102,9 @@ class Game {
     // 起始分數
     this.playerScore = 0
 
+    // 問答
+    this.QuiThink = new QuiThink(8)
+
     return true
   }
 
@@ -116,10 +120,10 @@ class Game {
     text4.init('想到這裡就覺得...', text5.register)
     text5.init('好緊張好緊張歐。･ﾟ･(つд`ﾟ)･ﾟ･', this.start)
     text.register()
+    this.ship.draw()
   }
 
   start () {
-    this.ship.draw()
     soundStorage.backgroundAudio.currentTime = 0
     soundStorage.backgroundAudio.play()
     animate()
@@ -141,14 +145,14 @@ class Game {
     this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
     this.shipContext.clearRect(0, 0, this.shipCanvas.width, this.shipCanvas.height)
     this.mainContext.clearRect(0, 0, this.mainCanvas.width, this.mainCanvas.height)
-    
+
     this.setBackground()
     this.setShip()
     this.setEnemy()
     this.setEnemyBullet()
     this.quadTree.clear()
     this.playerScore = 0
-    
+
     this.start()
   }
 

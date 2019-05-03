@@ -11,7 +11,7 @@ class Ship extends Drawable {
     super()
     this.alive = true
     this.speed = 3
-    this.bulletPool = new ObjectPool(20000, 'bullet') //子彈數量
+    this.bulletPool = new ObjectPool(20000, 'bullet') // 子彈數量
     this.counter = 0
     this.fireRate = 3
     this.type = 'ship'
@@ -40,7 +40,6 @@ class Ship extends Drawable {
     // 判斷是否按下方向鍵
     if (KEY_STATUS.left || KEY_STATUS.right ||
         KEY_STATUS.down || KEY_STATUS.up) {
-      
       this.clear()
 
       // 根據不同的方向鍵 更新座標
@@ -49,20 +48,17 @@ class Ship extends Drawable {
         if (this.x <= 0) {
           this.x = 0
         }
-      }
-      else if (KEY_STATUS.right) {
+      } else if (KEY_STATUS.right) {
         this.x += this.speed
         if (this.x >= this.canvasWidth - this.width) {
           this.x = this.canvasWidth - this.width
         }
-      }
-      else if (KEY_STATUS.up) {
+      } else if (KEY_STATUS.up) {
         this.y -= this.speed
         if (this.y <= this.canvasHeight / 4 * 3) {
           this.y = this.canvasHeight / 4 * 3
         }
-      }
-      else if (KEY_STATUS.down) {
+      } else if (KEY_STATUS.down) {
         this.y += this.speed
         if (this.y >= this.canvasHeight - this.height) {
           this.y = this.canvasHeight - this.height
@@ -74,8 +70,7 @@ class Ship extends Drawable {
     if (this.isCollided) {
       this.reset()
       game.over()
-    }
-    else {
+    } else {
       this.draw()
     }
   }
@@ -86,7 +81,7 @@ class Ship extends Drawable {
     if (this.counter >= this.fireRate) {
       this.counter = 0
       this.bulletPool.getTwo(this.x + 6, this.y, 3,
-                             this.x + 33, this.y, 3)
+        this.x + 33, this.y, 3)
       soundStorage.laser.get()
     }
   }

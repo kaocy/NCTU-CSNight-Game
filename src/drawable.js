@@ -22,8 +22,8 @@ class Drawable {
     // 不需要偵測碰撞的情形 如我方太空船和我方子彈
     if (this.collidableWith.indexOf(object.type) === -1) return false
 
-    return (this.x < object.x + object.width)  &&
-           (this.x + this.width > object.x)    &&
+    return (this.x < object.x + object.width) &&
+           (this.x + this.width > object.x) &&
            (this.y < object.y + object.height) &&
            (this.y + this.height > object.y)
   }
