@@ -24,6 +24,7 @@ class Game {
   }
 
   init () {
+    this.textBgCanvas = document.getElementById('text-background')
     this.textCanvas = document.getElementById('text')
     this.bgCanvas = document.getElementById('background')
     this.shipCanvas = document.getElementById('ship')
@@ -31,6 +32,9 @@ class Game {
 
     // 如果瀏覽器不支援canvas就跳出
     if (!this.bgCanvas.getContext) return false
+
+    this.textBgCanvas.width = window.innerWidth
+    this.textBgCanvas.height = window.innerHeight
 
     this.textCanvas.width = window.innerWidth
     this.textCanvas.height = window.innerHeight
@@ -41,9 +45,14 @@ class Game {
     this.mainCanvas.width = window.innerWidth
     this.mainCanvas.height = window.innerHeight
 
+    this.textBgContext = this.textBgCanvas.getContext('2d')
+    this.textBgContext.fillStyle = 'black'
+    this.textBgContext.fillRect(0, 0, this.textBgCanvas.width, this.textBgCanvas.height)
+
     this.textContext = this.textCanvas.getContext('2d')
-    this.textContext.font = '60px Arial'
-    this.textContext.fillStyle = 'red'
+    this.textContext.font = '60px k8x12'
+    this.textContext.fillStyle = 'white'
+
     this.bgContext = this.bgCanvas.getContext('2d')
     this.shipContext = this.shipCanvas.getContext('2d')
     this.mainContext = this.mainCanvas.getContext('2d')
@@ -98,8 +107,14 @@ class Game {
   introduce () {
     let text = new Text()
     let text2 = new Text()
-    text.init('故事介紹: 從前從前...', text2.register)
-    text2.init('對話匡測試', this.start)
+    let text3 = new Text()
+    let text4 = new Text()
+    let text5 = new Text()
+    text.init('從前從前...', text2.register)
+    text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
+    text3.init('傳聞裡面有很多的考驗...', text4.register)
+    text4.init('想到這裡就覺得...', text5.register)
+    text5.init('好緊張好緊張歐。･ﾟ･(つд`ﾟ)･ﾟ･', this.start)
     text.register()
   }
 
@@ -122,6 +137,7 @@ class Game {
     soundStorage.gameOverAudio.pause()
     document.getElementById('game-over').style.display = 'none'
 
+    this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)
     this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
     this.shipContext.clearRect(0, 0, this.shipCanvas.width, this.shipCanvas.height)
     this.mainContext.clearRect(0, 0, this.mainCanvas.width, this.mainCanvas.height)
