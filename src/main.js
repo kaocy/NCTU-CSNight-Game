@@ -7,6 +7,7 @@ import 'assets/stylesheets/index.scss'
 let game = new Game()
 let imageStorage = new ImageStorage()
 let soundStorage = new SoundStorage()
+let startButton = document.getElementById('start')
 let scoreElement = document.getElementById('score')
 let restartElement = document.getElementById('game-over')
 
@@ -17,11 +18,16 @@ let checkLoading = window.setInterval(() => {
 
     // game初始完才開始
     if (game.init()) {
-      game.introduce()
+      document.getElementById('init').style.height = `${window.innerHeight}px`
     }
   }
 }, 100)
 
+startButton.addEventListener('click', () => {
+  console.log(87)
+  document.getElementById('init').style.display = 'none'
+  game.introduce()
+})
 restartElement.addEventListener('click', game.restart)
 
 /**

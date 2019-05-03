@@ -1,10 +1,26 @@
 @import 'macro.scss';
+
 canvas {
     position: absolute;
     top: 0px;
     left: 0px;
     background: transparent;
 }
+
+#init {
+    background-color: black;
+    z-index: 10;
+    #start {
+        color: white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 50px;
+        z-index: 15;
+    }
+}
+
 #background {
     z-index: -2;
 }
