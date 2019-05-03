@@ -27,15 +27,13 @@ class ObjectPool {
         bullet.init(0, 0, imageStorage.bullet.width, imageStorage.bullet.height)
         this.pool.push(bullet)
       }
-    }
-    else if (this.type === 'enemy') {
+    } else if (this.type === 'enemy') {
       for (let i = 0; i < this.size; i++) {
         let enemy = new Enemy()
-        enemy.init(0, 0, window.innerWidth * 0.1 , window.innerWidth * 0.1)
+        enemy.init(0, 0, window.innerWidth * 0.1, window.innerWidth * 0.1)
         this.pool.push(enemy)
       }
-    }
-    else if (this.type === 'enemyBullet') {
+    } else if (this.type === 'enemyBullet') {
       for (let i = 0; i < this.size; i++) {
         let enemyBullet = new Bullet('enemyBullet')
         enemyBullet.init(0, 0, imageStorage.enemyBullet.width, imageStorage.enemyBullet.height)

@@ -7,7 +7,7 @@ class Enemy extends Drawable {
   constructor () {
     super()
     this.alive = false
-    this.chance = 0  // 發射子彈的機率
+    this.chance = 0 // 發射子彈的機率
     this.percentFire = 0.01 // 發射子彈的門檻
     this.type = 'enemy'
     this.collidableWith.push('bullet')
@@ -49,7 +49,7 @@ class Enemy extends Drawable {
     // GIF效果
     let img = (this.imageCounter < 5) ? imageStorage.enemy1 : imageStorage.enemy2
     this.imageCounter++
-    if(this.imageCounter == 10) this.imageCounter -= 10
+    if (this.imageCounter == 10) this.imageCounter -= 10
     this.context.drawImage(img, this.x, this.y, window.innerWidth * 0.07, window.innerWidth * 0.07)
   }
 
@@ -64,8 +64,7 @@ class Enemy extends Drawable {
     this.y += this.speedY
     if (this.x <= this.leftEdge) {
       this.speedX = this.speed
-    }
-    else if (this.x >= this.rightEdge + this.width) {
+    } else if (this.x >= this.rightEdge + this.width) {
       this.speedX = -this.speed
     }
     // 一開始會往下移動 到定位後才會給x方向的速度

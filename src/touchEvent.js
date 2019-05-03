@@ -32,10 +32,9 @@ const handleRightEnd = (e) => {
   KEY_STATUS[KEY_CODES[39]] = false
 }
 
-
 // 監聽觸控事件
-document.getElementById('left').addEventListener("touchstart", handleLeftStart, false)
-document.getElementById('left').addEventListener("touchend", handleLeftEnd, false)
-document.getElementById('right').addEventListener("touchstart", handleRightStart, false)
-document.getElementById('right').addEventListener("touchend", handleRightEnd, false)
+document.getElementById('left').addEventListener('touchstart', handleLeftStart, false)
+document.getElementById('left').addEventListener('touchend', handleLeftEnd, false)
+document.getElementById('right').addEventListener('touchstart', handleRightStart, false)
+document.getElementById('right').addEventListener('touchend', handleRightEnd, false)
 document.oncontextmenu = () => false

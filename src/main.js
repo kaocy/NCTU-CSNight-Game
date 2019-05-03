@@ -3,6 +3,7 @@ import Game from 'game'
 import ImageStorage from 'imageStorage'
 import SoundStorage from 'soundStorage'
 import 'assets/stylesheets/index.scss'
+import {data, QUI} from './assets/resources/quithink'
 
 let game = new Game()
 let imageStorage = new ImageStorage()
@@ -17,6 +18,7 @@ let checkLoading = window.setInterval(() => {
 
     // game初始完才開始
     if (game.init()) {
+      loadQui()
       game.introduce()
     }
   }
@@ -58,7 +60,12 @@ function animate () {
     game.enemyBulletPool.animate()
   }
 }
-
+function loadQui () {
+  if (QUI.frame === 0) {
+    game.QuiThink.setQuestion(data[QUI.sheet][QUI.frame])
+    QUI.frame++
+  }
+}
 /**
  * requestAnim shim layer by Paul Irish
  * Finds the first API that works to optimize the animation loop,

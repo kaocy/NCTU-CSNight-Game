@@ -73,8 +73,8 @@ class Text {
         return
       }
 
-      // 把之前的幾行字都寫出來  
-      for(let i = 0; i < this.contentArr.length; i++) {
+      // 把之前的幾行字都寫出來
+      for (let i = 0; i < this.contentArr.length; i++) {
         if (i < this.lineCount) {
           this.context.fillText(this.contentArr[i], this.xpos, (this.startY + this.lineHeight * i))
         }
@@ -94,8 +94,7 @@ class Text {
       if (textWidth > (this.maxWidth - 10)) {
         lineOfText = word
         lineNumber++
-      }
-      else {
+      } else {
         lineOfText = currentText
       }
 
