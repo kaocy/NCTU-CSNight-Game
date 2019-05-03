@@ -1,7 +1,7 @@
 
 // 對話匡 類似打字機
 class Text {
-  constructor (lineHeight = 60, maxWidth = 500, xpos = 100, ypos = (window.innerHeight / 2) ) {
+  constructor (lineHeight = 60, maxWidth = 300, xpos = 100, ypos = (window.innerHeight / 3) ) {
     this.content = ''
     this.contentArr = []
     this.lineCount = 0

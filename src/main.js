@@ -3,7 +3,6 @@ import Game from 'game'
 import ImageStorage from 'imageStorage'
 import SoundStorage from 'soundStorage'
 import 'assets/stylesheets/index.scss'
-import {data, QUI} from './assets/resources/quithink'
 
 let game = new Game()
 let imageStorage = new ImageStorage()
@@ -20,14 +19,11 @@ let checkLoading = window.setInterval(() => {
     // game初始完才開始
     if (game.init()) {
       document.getElementById('init').style.height = `${window.innerHeight}px`
-      loadQui()
-      game.introduce()
     }
   }
 }, 100)
 
 startButton.addEventListener('click', () => {
-  console.log(87)
   document.getElementById('init').style.display = 'none'
   game.introduce()
 })
@@ -67,12 +63,31 @@ function animate () {
     game.enemyBulletPool.animate()
   }
 }
-function loadQui () {
-  if (QUI.frame === 0) {
-    game.QuiThink.setQuestion(data[QUI.sheet][QUI.frame])
-    QUI.frame++
-  }
+/***
+幫psuedo element加入style setter 
+***/
+let UID = {
+	_current: 0,
+	getNew: function(){
+		this._current++
+		return this._current
+	}
 }
+HTMLElement.prototype.pseudoStyle = function(element,prop,value){
+	let _this = this
+	let _sheetId = "pseudoStyles"
+	let _head = document.head || document.getElementsByTagName('head')[0]
+	let _sheet = document.getElementById(_sheetId) || document.createElement('style')
+	_sheet.id = _sheetId;
+	let className = "pseudoStyle" + UID.getNew()
+	
+	_this.className +=  " "+className
+	
+	_sheet.innerHTML += " ."+className+":"+element+"{"+prop+":"+value+"}"
+	_head.appendChild(_sheet)
+	return this
+}
+
 /**
  * requestAnim shim layer by Paul Irish
  * Finds the first API that works to optimize the animation loop,

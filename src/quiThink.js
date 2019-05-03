@@ -8,7 +8,9 @@ class QuiThink {
     this.show = this.show.bind(this)
     this.setQuestion = this.setQuestion.bind(this)
     this.clear = this.clear.bind(this)
-    this.timer = new Timer() // new a timer
+    this.timer = new Timer() // new a timer'
+    this.correct = 0
+    this.incorrect = 0
   }
   show () {
     let {height, top} = document.getElementById('quiOptions').getBoundingClientRect()
@@ -20,14 +22,17 @@ class QuiThink {
 
   setQuestion (qs) {
     let {question, choices, ans} = qs
-    console.log(qs)
+    // console.log(qs)
     // set question & options
+    let leng = data[QUI.sheet].length
+    document.getElementsByClassName('quiBar')[0].pseudoStyle("after","height",`${parseInt(this.correct / leng * 100)}%`)
+    document.getElementsByClassName('quiBar')[1].pseudoStyle("after","height",`${parseInt((this.incorrect / leng) * 100)}%`)
     document.getElementsByClassName('quiOption')[0].style.background = 'rgb(238, 238, 238)'
     document.getElementsByClassName('quiOption')[1].style.background = 'rgb(238, 238, 238)'
     document.getElementsByClassName('quiOption')[2].style.background = 'rgb(238, 238, 238)'
     document.getElementsByClassName('quiOption')[3].style.background = 'rgb(238, 238, 238)'
     const transition = () => {
-      if (QUI.frame < data[QUI.sheet].length) {
+      if (QUI.frame < leng) {
         game.QuiThink.setQuestion(data[QUI.sheet][QUI.frame])
         QUI.frame++
       } else {
@@ -39,9 +44,11 @@ class QuiThink {
       this.timer.timeup()
       if (e.target.classList.length === 2) {
         // Pass
+        this.correct ++
         e.target.style.background = 'rgb(64,204,161)'
       } else {
         // Fail
+        this.incorrect ++
         e.target.style.background = 'rgb(223,95,98)'
       }
       document.getElementsByClassName('quiOption')[0].removeEventListener('click', checkAns)

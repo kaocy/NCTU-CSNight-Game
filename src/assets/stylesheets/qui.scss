@@ -100,7 +100,6 @@ $NPCColor:rgb(192, 132, 132);
                 &::after{
                     background: $PlayerColor;
                     width: 3vw;
-                    height: 20%;
                 }
             }
             &:last-child{
@@ -109,7 +108,6 @@ $NPCColor:rgb(192, 132, 132);
                 &::after{
                     background: $NPCColor;
                     width: 3vw;
-                    height: 30%;
                 }
             }
         }
