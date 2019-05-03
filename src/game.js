@@ -6,7 +6,9 @@ import Bullet from 'bullet'
 import Enemy from 'enemy'
 import ObjectPool from 'objectPool'
 import QuadTree from 'quadTree'
+import QuiThink from 'quiThink'
 import { imageStorage, soundStorage, animate } from 'main'
+import {data, QUI} from './assets/resources/quithink'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
@@ -21,6 +23,7 @@ class Game {
     this.setEnemy = this.setEnemy.bind(this)
     this.setEnemyBullet = this.setEnemyBullet.bind(this)
     this.detectCollision = this.detectCollision.bind(this)
+    this.loadQui = this.loadQui.bind(this)
   }
 
   init () {
@@ -101,6 +104,9 @@ class Game {
     // 起始分數
     this.playerScore = 0
 
+    // 問答
+    this.QuiThink = new QuiThink(8)
+
     return true
   }
 
@@ -130,8 +136,16 @@ class Game {
     soundStorage.gameOverAudio.currentTime = 0
     soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
+    this.loadQui()
   }
-
+  
+  loadQui(){
+    console.log(88)
+    if (QUI.frame === 0) {
+      this.QuiThink.setQuestion(data[QUI.sheet][QUI.frame])
+      QUI.frame++
+    }
+  }
   // 將物件位置初始化並清空畫布後再開始
   restart () {
     soundStorage.gameOverAudio.pause()
@@ -141,14 +155,14 @@ class Game {
     this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
     this.shipContext.clearRect(0, 0, this.shipCanvas.width, this.shipCanvas.height)
     this.mainContext.clearRect(0, 0, this.mainCanvas.width, this.mainCanvas.height)
-    
+
     this.setBackground()
     this.setShip()
     this.setEnemy()
     this.setEnemyBullet()
     this.quadTree.clear()
     this.playerScore = 0
-    
+
     this.start()
   }
 

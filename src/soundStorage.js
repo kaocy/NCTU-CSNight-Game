@@ -21,15 +21,14 @@ class SoundPool {
     if (this.type === 'laser') {
       for (let i = 0; i < this.size; i++) {
         let laser = new Audio(laserAudio)
-        laser.volume = .12
+        laser.volume = 0.12
         laser.load()
         this.pool.push(laser)
       }
-    }
-    else if (this.type === 'explosion') {
+    } else if (this.type === 'explosion') {
       for (let i = 0; i < this.size; i++) {
         let explosion = new Audio(explosionAudio)
-        explosion.volume = .12;
+        explosion.volume = 0.12
         explosion.load()
         this.pool.push(explosion)
       }
@@ -38,10 +37,10 @@ class SoundPool {
 
   get () {
     let sound = this.pool[this.currentSound]
-    if(sound.currentTime === 0 || sound.ended) {
+    if (sound.currentTime === 0 || sound.ended) {
       sound.play()
     }
-    this.currentSound = (this.currentSound + 1) % this.size;
+    this.currentSound = (this.currentSound + 1) % this.size
   }
 }
 
@@ -55,11 +54,11 @@ class SoundStorage {
 
     this.backgroundAudio = new Audio(backgroundAudio)
     this.backgroundAudio.loop = true
-    this.backgroundAudio.volume = .25
+    this.backgroundAudio.volume = 0.25
     this.backgroundAudio.load()
     this.gameOverAudio = new Audio(gameOverAudio)
     this.gameOverAudio.loop = true
-    this.gameOverAudio.volume = .25
+    this.gameOverAudio.volume = 0.25
     this.gameOverAudio.load()
 
     this.finishLoading = this.finishLoading.bind(this)

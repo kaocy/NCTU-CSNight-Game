@@ -1,0 +1,115 @@
+$PlayerColor: rgb(117, 137, 165);
+$NPCColor:rgb(192, 132, 132);
+#quickThink{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.8); 
+    color: white;
+    opacity: 0;
+
+    #quiHeader{
+        $h:13vh;
+        width: inherit;
+        height: 25%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .quiPlayer{
+            width: $h;
+            height: $h;
+            border: 5px solid white;
+            &:first-child{
+                left: 10%;
+                background: $PlayerColor;
+            }
+            &:last-child{
+                right: 10%;
+                background: $NPCColor;
+            }
+        }
+        #quiTimer{
+            width: $h;
+            height: $h;
+            border-radius: $h / 2;
+            line-height: $h;
+            font-size: 4rem;
+            text-align: center;
+            user-select: none;
+        }
+    }
+    #quiContent{
+        position: absolute;
+        left: 0;
+        top: 30%;
+        height: 75%;
+        width: 100%;
+        font-size: 1.2rem;
+        padding-top: 5%;
+        #quiQuestion{
+            width: 63%;
+            text-align: justify;
+            margin: 0 auto;
+        }
+        #quiOptions{
+            margin-top: 12%;
+            .quiOption{
+                cursor: pointer;
+                $color:rgb(238, 238, 238);
+                color: #555;
+                width: 65%;
+                padding: 2% 4%;
+                background: $color;
+                margin: 4% auto;
+                border-radius: 2px;
+                text-align: center;
+                cursor: pointer;
+                &:hover{
+                    transition: .3s;
+                    background: darken($color,10);
+                }
+            }
+        }
+    }
+    #quiBarContainer{
+        position: absolute;
+        width: 100%;
+        .quiBar{
+            position: absolute;
+            height: 100%;
+            width: 4vw;
+            box-sizing: border-box;
+            border: 2px solid rgba(255,255,255,.4);
+            border-radius: 2px;
+            &::after{
+                content: "";
+                position: absolute;
+                display: block;
+                left: 0;
+                bottom: 0;
+                border: 2px solid transparent;
+                width: 3vw;
+                box-sizing: border-box;
+            }
+            &:first-child{
+                left: 4%;
+                height: 100%;
+                &::after{
+                    background: $PlayerColor;
+                    width: 3vw;
+                }
+            }
+            &:last-child{
+                right: 4%;
+                height: 100%;
+                &::after{
+                    background: $NPCColor;
+                    width: 3vw;
+                }
+            }
+        }
+    }
+}

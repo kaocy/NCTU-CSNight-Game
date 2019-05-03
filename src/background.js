@@ -10,7 +10,6 @@ class Background extends Drawable {
     this.speed = 1 // 設定背景圖片捲動速度
     this.roll = roll
 
-
     this.move = this.move.bind(this)
     this.draw = this.draw.bind(this)
   }

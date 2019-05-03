@@ -1,7 +1,7 @@
 
 // 對話匡 類似打字機
 class Text {
-  constructor (lineHeight = 60, maxWidth = 500, xpos = 100, ypos = (window.innerHeight / 2) ) {
+  constructor (lineHeight = 60, maxWidth = 300, xpos = 100, ypos = (window.innerHeight / 3) ) {
     this.content = ''
     this.contentArr = []
     this.lineCount = 0
@@ -73,8 +73,8 @@ class Text {
         return
       }
 
-      // 把之前的幾行字都寫出來  
-      for(let i = 0; i < this.contentArr.length; i++) {
+      // 把之前的幾行字都寫出來
+      for (let i = 0; i < this.contentArr.length; i++) {
         if (i < this.lineCount) {
           this.context.fillText(this.contentArr[i], this.xpos, (this.startY + this.lineHeight * i))
         }
@@ -94,8 +94,7 @@ class Text {
       if (textWidth > (this.maxWidth - 10)) {
         lineOfText = word
         lineNumber++
-      }
-      else {
+      } else {
         lineOfText = currentText
       }
 
