@@ -24,6 +24,7 @@ let checkLoading = window.setInterval(() => {
 }, 100)
 
 startButton.addEventListener('click', () => {
+  window.sid = document.getElementById('sid').value
   document.getElementById('init').style.display = 'none'
   game.introduce()
 })

@@ -3,7 +3,7 @@ import Timer from 'timer'
 import { data, QUI } from './assets/resources/quithink'
 
 class QuiThink {
-  constructor (interval = 10) {
+  constructor (interval = 8) {
     this.interval = interval // time for one question
     this.timer = new Timer() // new a timer
     this.correct = 0
@@ -11,6 +11,7 @@ class QuiThink {
     this.show = this.show.bind(this)
     this.clear = this.clear.bind(this)
     this.load = this.load.bind(this)
+    this.reset = this.reset.bind(this)
     this.setQuestion = this.setQuestion.bind(this)
     this.checkAns = this.checkAns.bind(this)
     this.transition = this.transition.bind(this)
@@ -35,6 +36,15 @@ class QuiThink {
       this.setQuestion(data[QUI.level][QUI.qno])
       QUI.qno++
     }
+  }
+
+  reset () {
+    this.correct = 0
+    this.incorrect = 0
+    QUI.level = 0
+    QUI.qno = 0
+    document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', '0%')
+    document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', '0%')
   }
 
   setQuestion (qs) {

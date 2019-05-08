@@ -103,26 +103,35 @@ class Game {
     this.playerScore = 0
 
     // 問答
-    this.QuiThink = new QuiThink(8)
+    this.quiThink = new QuiThink()
 
     return true
   }
 
   introduce () {
+    document.getElementById('left').style.display = 'none'
+    document.getElementById('right').style.display = 'none'
+    document.getElementsByClassName('score')[0].style.display = 'none'
+
     let text = new Text()
     let text2 = new Text()
     let text3 = new Text()
     let text4 = new Text()
     let text5 = new Text()
-    text.init('從前從前...', text2.register)
-    text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
-    text3.init('傳聞裡面有很多的考驗...', text4.register)
-    text4.init('想到這裡就覺得...', text5.register)
-    text5.init('好緊張好緊張歐。･ﾟ･(つд`ﾟ)･ﾟ･', this.start)
+    text.init('從前從前...', this.start)
+    // text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
+    // text3.init('傳聞裡面有很多的考驗...', text4.register)
+    // text4.init('想到這裡就覺得...', text5.register)
+    // text5.init('好緊張好緊張歐。･ﾟ･(つд`ﾟ)･ﾟ･', this.start)
     text.register()
   }
 
   start () {
+    // 讓左右扭顯示
+    document.getElementById('left').style.display = 'block'
+    document.getElementById('right').style.display = 'block'
+    document.getElementsByClassName('score')[0].style.display = 'block'
+
     this.ship.draw()
     soundStorage.backgroundAudio.currentTime = 0
     soundStorage.backgroundAudio.play()
@@ -134,7 +143,7 @@ class Game {
     soundStorage.gameOverAudio.currentTime = 0
     soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
-    this.QuiThink.load()
+    this.quiThink.load()
   }
 
   // 將物件位置初始化並清空畫布後再開始
@@ -153,8 +162,9 @@ class Game {
     this.setEnemyBullet()
     this.quadTree.clear()
     this.playerScore = 0
+    this.quiThink.reset()
 
-    this.start()
+    this.introduce()
   }
 
   setBackground () {
