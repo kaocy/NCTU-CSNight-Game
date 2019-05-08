@@ -1,7 +1,9 @@
+
 let QUI = {
-  sheet: 0,
-  frame: 0
+  level: 0,
+  qno: 0
 }
+
 const data = [
   [{
     question: 'This is a good question<br>Ans: Option 3',
@@ -35,4 +37,4 @@ const data = [
   }]
 ]
 
-export {QUI, data}
+export { QUI, data }
