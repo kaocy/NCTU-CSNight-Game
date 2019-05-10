@@ -23,6 +23,7 @@ let checkLoading = window.setInterval(() => {
   }
 }, 100)
 
+// handle click event
 startButton.addEventListener('click', () => {
   // 把player_id存在cookie
   let pid = document.getElementById('pid').value
@@ -33,44 +34,7 @@ startButton.addEventListener('click', () => {
 })
 restartElement.addEventListener('click', game.restart)
 
-/**
- * The animation loop.
- * Calls the requestAnimationFrame shim to optimize the game loop and draws all game objects.
- * This function must be a gobal function and cannot be within an object.
- */
-function animate () {
-  // 打完敵人就重置
-  if (game.enemyPool.getAliveObjects().length === 0) {
-    game.setEnemy()
-  }
-
-  // 更新四元樹內所有物件所屬的區域並偵測碰撞
-  game.quadTree.clear()
-  game.quadTree.insert(game.ship)
-  game.quadTree.insert(game.ship.bulletPool.getAliveObjects())
-  game.quadTree.insert(game.enemyPool.getAliveObjects())
-  game.quadTree.insert(game.enemyBulletPool.getAliveObjects())
-  game.detectCollision()
-
-  // 更新顯示的分數
-  scoreElement.innerHTML = game.playerScore
-
-  // 如果還沒死掉才會重複animate
-  if (game.ship.alive) {
-    window.requestAnimFrame(animate)
-
-    game.background.move()
-    game.ship.move()
-    game.ship.fire()
-    game.ship.bulletPool.animate()
-    game.enemyPool.animate()
-    game.enemyBulletPool.animate()
-  }
-}
-
-/**
- * 幫psuedo element加入style setter
- */
+// 幫psuedo element加入style setter
 let UID = {
   _current: 0,
   getNew: function () {
@@ -122,4 +86,4 @@ window.setCookie = function (name, value) {
   document.cookie = name + "=" + escape(value)
 }
 
-export { game, imageStorage, soundStorage, animate }
+export { game, imageStorage, soundStorage }

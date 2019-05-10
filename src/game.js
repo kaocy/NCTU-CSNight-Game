@@ -7,7 +7,7 @@ import Enemy from 'enemy'
 import ObjectPool from 'objectPool'
 import QuadTree from 'quadTree'
 import QuiThink from 'quiThink'
-import { imageStorage, soundStorage, animate } from 'main'
+import { imageStorage, soundStorage } from 'main'
 import { recordScore } from 'api'
 
 // 整體遊戲 包含所有會用到的物件
@@ -23,6 +23,7 @@ class Game {
     this.setEnemy = this.setEnemy.bind(this)
     this.setEnemyBullet = this.setEnemyBullet.bind(this)
     this.detectCollision = this.detectCollision.bind(this)
+    this.animate  = this.animate.bind(this)
   }
 
   init () {
@@ -137,7 +138,7 @@ class Game {
     this.ship.draw()
     soundStorage.backgroundAudio.currentTime = 0
     soundStorage.backgroundAudio.play()
-    animate()
+    this.animate()
   }
 
   over () {
@@ -222,6 +223,41 @@ class Game {
           objects2[j].isCollided = true
         }
       }
+    }
+  }
+
+  /**
+   * The animation loop.
+   * Calls the requestAnimationFrame shim to optimize the game loop and draws all game objects.
+   * This function must be a gobal function and cannot be within an object.
+   */
+  animate () {
+    // 打完敵人就重置
+    if (this.enemyPool.getAliveObjects().length === 0) {
+      this.setEnemy()
+    }
+
+    // 更新四元樹內所有物件所屬的區域並偵測碰撞
+    this.quadTree.clear()
+    this.quadTree.insert(this.ship)
+    this.quadTree.insert(this.ship.bulletPool.getAliveObjects())
+    this.quadTree.insert(this.enemyPool.getAliveObjects())
+    this.quadTree.insert(this.enemyBulletPool.getAliveObjects())
+    this.detectCollision()
+
+    // 更新顯示的分數
+    document.getElementById('score').innerHTML = this.playerScore
+
+    // 如果還沒死掉才會重複animate
+    if (this.ship.alive) {
+      window.requestAnimFrame(this.animate)
+
+      this.background.move()
+      this.ship.move()
+      this.ship.fire()
+      this.ship.bulletPool.animate()
+      this.enemyPool.animate()
+      this.enemyBulletPool.animate()
     }
   }
 }

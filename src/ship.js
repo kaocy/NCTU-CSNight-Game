@@ -32,7 +32,7 @@ class Ship extends Drawable {
   draw () {
     let img = ( this.imageCounter > 10 ) ? imageStorage.boy1 : imageStorage.boy3
     this.context.drawImage(img, this.x, this.y)
-    if(++this.imageCounter === 20) this.imageCounter = 0
+    if (++this.imageCounter === 20) this.imageCounter = 0
   }
 
   clear () {
@@ -40,34 +40,30 @@ class Ship extends Drawable {
   }
 
   move () {
-    // 判斷是否按下方向鍵
-    //if (KEY_STATUS.left || KEY_STATUS.right ||
-      //  KEY_STATUS.down || KEY_STATUS.up) {
-      this.clear()
+    this.clear()
 
-      // 根據不同的方向鍵 更新座標
-      if (KEY_STATUS.left) {
-        this.x -= this.speed
-        if (this.x <= 0) {
-          this.x = 0
-        }
-      } else if (KEY_STATUS.right) {
-        this.x += this.speed
-        if (this.x >= this.canvasWidth - this.width) {
-          this.x = this.canvasWidth - this.width
-        }
-      } else if (KEY_STATUS.up) {
-        this.y -= this.speed
-        if (this.y <= this.canvasHeight / 4 * 3) {
-          this.y = this.canvasHeight / 4 * 3
-        }
-      } else if (KEY_STATUS.down) {
-        this.y += this.speed
-        if (this.y >= this.canvasHeight - this.height) {
-          this.y = this.canvasHeight - this.height
-        }
+    // 根據不同的方向鍵 更新座標
+    if (KEY_STATUS.left) {
+      this.x -= this.speed
+      if (this.x <= 0) {
+        this.x = 0
       }
-  //  }
+    } else if (KEY_STATUS.right) {
+      this.x += this.speed
+      if (this.x >= this.canvasWidth - this.width) {
+        this.x = this.canvasWidth - this.width
+      }
+    } else if (KEY_STATUS.up) {
+      this.y -= this.speed
+      if (this.y <= this.canvasHeight / 4 * 3) {
+        this.y = this.canvasHeight / 4 * 3
+      }
+    } else if (KEY_STATUS.down) {
+      this.y += this.speed
+      if (this.y >= this.canvasHeight - this.height) {
+        this.y = this.canvasHeight - this.height
+      }
+    }
 
     // 暫定被敵方子彈射中就結束
     if (this.isCollided) {
@@ -83,8 +79,7 @@ class Ship extends Drawable {
     // 如果按下空白鍵且在發射速度限制內 從子彈池中取出兩發子彈發射
     if (this.counter >= this.fireRate) {
       this.counter = 0
-      this.bulletPool.getTwo(this.x + 6, this.y, 3,
-        this.x + 33, this.y, 3)
+      this.bulletPool.getTwo(this.x + 6, this.y, 3, this.x + 33, this.y, 3)
       soundStorage.laser.get()
     }
   }
