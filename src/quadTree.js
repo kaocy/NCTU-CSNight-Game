@@ -103,7 +103,7 @@ class QuadTree {
       let index = this.getIndex(object)
 
       // 如果在某個子區域內
-      if (index != -1) {
+      if (index !== -1) {
         this.children[index].insert(object)
         return
       }
@@ -121,7 +121,7 @@ class QuadTree {
       // 把該節點的物件搬移到四個子區域內 (跨區域就保留)
       for (let i = 0; i < this.objects.length; i++) {
         let index = this.getIndex(this.objects[i])
-        if (index != -1) {
+        if (index !== -1) {
           this.children[index].insert((this.objects.splice(i, 1))[0])
           i--
         }
@@ -141,7 +141,7 @@ class QuadTree {
   findPossibleCollided (object) {
     let array = []
     let index = this.getIndex(object)
-    if (index != -1 && this.children.length) {
+    if (index !== -1 && this.children.length) {
       array.push(...this.children[index].findPossibleCollided(object))
     }
     array.push(...this.objects)

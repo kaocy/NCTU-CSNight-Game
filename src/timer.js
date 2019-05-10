@@ -1,24 +1,25 @@
 
 class Timer {
   constructor () {
+    this.remain = 0 // remain time
     this.countdown = this.countdown.bind(this)
     this.timeup = this.timeup.bind(this)
-    this.remain = 0
   }
-  countdown (sec, doneFn, CountFn) {
+
+  countdown (sec, doneFn, countFn) {
     this.remain = sec
-    this.timer = setInterval(
-      () => {
-        this.remain--
-        CountFn(this.remain)
-        if (this.remain === 0) {
-          this.timeup()
-          doneFn()
-        }
-      }, 1000)
+    this.timer = window.setInterval(() => {
+      this.remain--
+      countFn(this.remain)
+      if (this.remain === 0) {
+        this.timeup()
+        doneFn()
+      }
+    }, 1000)
   }
+
   timeup () {
-    clearInterval(this.timer)
+    window.clearInterval(this.timer)
   }
 }
 

@@ -1,7 +1,9 @@
+
 let QUI = {
-  sheet: 0,
-  frame: 0
+  level: 0,
+  qno: 0
 }
+
 const data = [
   [{
     question: '有天阿志打電話到四次函數家找常數，\n請問阿志要喂幾次才能找到他？',
@@ -35,4 +37,4 @@ const data = [
   }]
 ]
 
-export {QUI, data}
+export { QUI, data }
