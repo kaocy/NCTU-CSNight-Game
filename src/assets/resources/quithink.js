@@ -6,14 +6,14 @@ let QUI = {
 
 const data = [
   [{
-    question: 'This is a good question<br>Ans: Option 3',
+    question: '有天阿志打電話到四次函數家找常數，\n請問阿志要喂幾次才能找到他？',
     choices: [
-      'Option 1',
-      'Option 2',
-      'Option 3',
-      'Option 4'
+      '喂',
+      '喂喂',
+      '喂喂喂',
+      '喂喂喂喂'
     ],
-    ans: 2
+    ans: 3
   },
   {
     question: 'This is a question<br>Ans: Option d',

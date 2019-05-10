@@ -119,6 +119,7 @@ class Game {
     let text3 = new Text()
     let text4 = new Text()
     let text5 = new Text()
+
     text.init('從前從前...', this.start)
     // text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
     // text3.init('傳聞裡面有很多的考驗...', text4.register)
