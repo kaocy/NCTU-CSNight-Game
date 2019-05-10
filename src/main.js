@@ -24,7 +24,10 @@ let checkLoading = window.setInterval(() => {
 }, 100)
 
 startButton.addEventListener('click', () => {
-  window.sid = document.getElementById('sid').value
+  // 把player_id存在cookie
+  let pid = document.getElementById('pid').value
+  window.setCookie('pid', pid)
+
   document.getElementById('init').style.display = 'none'
   game.introduce()
 })
@@ -107,5 +110,16 @@ window.requestAnimFrame = (function () {
     }
   )
 })()
+
+// global get cookie method
+window.getCookie = function (name) {
+  let match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))
+  if (match) return match[2]
+}
+
+// global set cookie method
+window.setCookie = function (name, value) {
+  document.cookie = name + "=" + escape(value)
+}
 
 export { game, imageStorage, soundStorage, animate }

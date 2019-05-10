@@ -8,6 +8,7 @@ import ObjectPool from 'objectPool'
 import QuadTree from 'quadTree'
 import QuiThink from 'quiThink'
 import { imageStorage, soundStorage, animate } from 'main'
+import { recordScore } from 'api'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
@@ -144,6 +145,13 @@ class Game {
     soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
     this.quiThink.load()
+
+    // 送api request
+    recordScore({
+      pid: window.getCookie('pid'),
+      score: this.playerScore
+    })
+    // console.log(window.getCookie('pid'), this.playerScore)
   }
 
   // 將物件位置初始化並清空畫布後再開始
