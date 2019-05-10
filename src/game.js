@@ -116,11 +116,11 @@ class Game {
     let text3 = new Text()
     let text4 = new Text()
     let text5 = new Text()
-    text.init('從前從前...', text2.register)
-    text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
-    text3.init('傳聞裡面有很多的考驗...', text4.register)
-    text4.init('想到這裡就覺得...', text5.register)
-    text5.init('好緊張好緊張歐。･ﾟ･(つд`ﾟ)･ﾟ･', this.start)
+    text.init('從前從前...', text5.register)
+    //text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
+    //text3.init('傳聞裡面有很多的考驗...', text4.register)
+    //text4.init('想到這裡就覺得...', text5.register)
+    text5.init('好緊張好緊張歐。', this.start)
     text.register()
   }
 

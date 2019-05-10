@@ -16,6 +16,7 @@ class Ship extends Drawable {
     this.fireRate = 3
     this.type = 'ship'
     this.collidableWith.push('enemyBullet')
+    this.imageCounter = 0                   //GIF 效果
 
     this.draw = this.draw.bind(this)
     this.clear = this.clear.bind(this)
@@ -29,7 +30,9 @@ class Ship extends Drawable {
   }
 
   draw () {
-    this.context.drawImage(imageStorage.ship, this.x, this.y, window.innerWidth * 0.1, window.innerWidth * 0.1)
+    let img = ( this.imageCounter > 10 ) ? imageStorage.boy1 : imageStorage.boy3
+    this.context.drawImage(img, this.x, this.y)
+    if(++this.imageCounter === 20) this.imageCounter = 0
   }
 
   clear () {
@@ -38,8 +41,8 @@ class Ship extends Drawable {
 
   move () {
     // 判斷是否按下方向鍵
-    if (KEY_STATUS.left || KEY_STATUS.right ||
-        KEY_STATUS.down || KEY_STATUS.up) {
+    //if (KEY_STATUS.left || KEY_STATUS.right ||
+      //  KEY_STATUS.down || KEY_STATUS.up) {
       this.clear()
 
       // 根據不同的方向鍵 更新座標
@@ -64,7 +67,7 @@ class Ship extends Drawable {
           this.y = this.canvasHeight - this.height
         }
       }
-    }
+  //  }
 
     // 暫定被敵方子彈射中就結束
     if (this.isCollided) {

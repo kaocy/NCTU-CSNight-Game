@@ -28,6 +28,7 @@
     #left {
         @include btn;
         border-color: transparent $primaryColor transparent transparent ;
+        font-family: 'k8x12';
         &:hover{
             border-color: transparent lighten($primaryColor,5) transparent transparent ;
         }
@@ -35,6 +36,7 @@
     #right {
         @include btn;
         border-color: transparent  transparent transparent $primaryColor;
+        font-family: 'k8x12';
         &:hover{
             border-color: transparent transparent transparent lighten($primaryColor,5) ;
         }
