@@ -3,11 +3,12 @@ import Timer from 'timer'
 import { data, QUI } from './assets/resources/quithink'
 
 class QuiThink {
-  constructor (interval = 8) {
+  constructor (interval = 8, endCallback) {
     this.interval = interval // time for one question
     this.timer = new Timer() // new a timer
     this.correct = 0
     this.incorrect = 0
+    this.endCallback = endCallback
     this.show = this.show.bind(this)
     this.clear = this.clear.bind(this)
     this.load = this.load.bind(this)
@@ -123,6 +124,7 @@ class QuiThink {
     } else {
       // close
       this.clear()
+      this.endCallback()
     }
   }
 }

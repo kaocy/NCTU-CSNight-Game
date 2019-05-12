@@ -83,7 +83,7 @@ window.getCookie = function (name) {
 
 // global set cookie method
 window.setCookie = function (name, value) {
-  document.cookie = name + "=" + escape(value)
+  document.cookie = name + '=' + escape(value)
 }
 
 export { game, imageStorage, soundStorage }

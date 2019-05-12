@@ -1,11 +1,6 @@
 
 import Text from 'text'
 import Background from 'background'
-import Ship from 'ship'
-import Bullet from 'bullet'
-import Enemy from 'enemy'
-import ObjectPool from 'objectPool'
-import QuadTree from 'quadTree'
 import QuiThink from 'quiThink'
 import { imageStorage, soundStorage } from 'main'
 import { recordScore } from 'api'
@@ -19,34 +14,22 @@ class Game {
     this.over = this.over.bind(this)
     this.restart = this.restart.bind(this)
     this.setBackground = this.setBackground.bind(this)
-    this.setShip = this.setShip.bind(this)
-    this.setEnemy = this.setEnemy.bind(this)
-    this.setEnemyBullet = this.setEnemyBullet.bind(this)
-    this.detectCollision = this.detectCollision.bind(this)
-    this.animate  = this.animate.bind(this)
   }
 
   init () {
     this.textBgCanvas = document.getElementById('text-background')
     this.textCanvas = document.getElementById('text')
     this.bgCanvas = document.getElementById('background')
-    this.shipCanvas = document.getElementById('ship')
-    this.mainCanvas = document.getElementById('main')
 
     // 如果瀏覽器不支援canvas就跳出
     if (!this.bgCanvas.getContext) return false
 
     this.textBgCanvas.width = window.innerWidth
     this.textBgCanvas.height = window.innerHeight
-
     this.textCanvas.width = window.innerWidth
     this.textCanvas.height = window.innerHeight
     this.bgCanvas.width = window.innerWidth
     this.bgCanvas.height = window.innerHeight
-    this.shipCanvas.width = window.innerWidth
-    this.shipCanvas.height = window.innerHeight
-    this.mainCanvas.width = window.innerWidth
-    this.mainCanvas.height = window.innerHeight
 
     this.textBgContext = this.textBgCanvas.getContext('2d')
     this.textBgContext.fillStyle = 'black'
@@ -57,8 +40,6 @@ class Game {
     this.textContext.fillStyle = 'white'
 
     this.bgContext = this.bgCanvas.getContext('2d')
-    this.shipContext = this.shipCanvas.getContext('2d')
-    this.mainContext = this.mainCanvas.getContext('2d')
 
     // 綁定canvas資訊到物件的prototype上
     Text.prototype.context = this.textContext
@@ -67,45 +48,16 @@ class Game {
     Background.prototype.context = this.bgContext
     Background.prototype.canvasWidth = this.bgCanvas.width
     Background.prototype.canvasHeight = this.bgCanvas.height
-    Ship.prototype.context = this.shipContext
-    Ship.prototype.canvasWidth = this.shipCanvas.width
-    Ship.prototype.canvasHeight = this.shipCanvas.height
-    Bullet.prototype.context = this.mainContext
-    Bullet.prototype.canvasWidth = this.mainCanvas.width
-    Bullet.prototype.canvasHeight = this.mainCanvas.height
-    Enemy.prototype.context = this.mainContext
-    Enemy.prototype.canvasWidth = this.mainCanvas.width
-    Enemy.prototype.canvasHeight = this.mainCanvas.height
 
     // 初始遊戲背景
     this.background = new Background()
     this.setBackground()
 
-    // 初始玩家太空船
-    this.ship = new Ship()
-    this.setShip()
-
-    // 初始敵人太空船池
-    this.enemyPool = new ObjectPool(30, 'enemy')
-    this.setEnemy()
-
-    // 初始敵人子彈池
-    this.enemyBulletPool = new ObjectPool(50, 'enemyBullet')
-    this.setEnemyBullet()
-
-    // 初始四元樹
-    this.quadTree = new QuadTree({
-      x: 0,
-      y: 0,
-      width: this.mainCanvas.width,
-      height: this.mainCanvas.height
-    }, 0)
-
     // 起始分數
     this.playerScore = 0
 
     // 問答
-    this.quiThink = new QuiThink()
+    this.quiThink = new QuiThink(8, this.over)
 
     return true
   }
@@ -131,46 +83,37 @@ class Game {
 
   start () {
     // 讓左右扭顯示
-    document.getElementById('left').style.display = 'block'
-    document.getElementById('right').style.display = 'block'
-    document.getElementsByClassName('score')[0].style.display = 'block'
+    // document.getElementById('left').style.display = 'block'
+    // document.getElementById('right').style.display = 'block'
+    // document.getElementsByClassName('score')[0].style.display = 'block'
 
-    this.ship.draw()
-    soundStorage.backgroundAudio.currentTime = 0
-    soundStorage.backgroundAudio.play()
-    this.animate()
+    // soundStorage.backgroundAudio.currentTime = 0
+    // soundStorage.backgroundAudio.play()
+    this.quiThink.load()
   }
 
   over () {
-    soundStorage.backgroundAudio.pause()
-    soundStorage.gameOverAudio.currentTime = 0
-    soundStorage.gameOverAudio.play()
+    // soundStorage.backgroundAudio.pause()
+    // soundStorage.gameOverAudio.currentTime = 0
+    // soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
-    this.quiThink.load()
 
     // 送api request
-    recordScore({
-      pid: window.getCookie('pid'),
-      score: this.playerScore
-    })
-    // console.log(window.getCookie('pid'), this.playerScore)
+    // recordScore({
+    //   pid: window.getCookie('pid'),
+    //   score: this.playerScore
+    // })
   }
 
   // 將物件位置初始化並清空畫布後再開始
   restart () {
-    soundStorage.gameOverAudio.pause()
+    // soundStorage.gameOverAudio.pause()
     document.getElementById('game-over').style.display = 'none'
 
     this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)
     this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
-    this.shipContext.clearRect(0, 0, this.shipCanvas.width, this.shipCanvas.height)
-    this.mainContext.clearRect(0, 0, this.mainCanvas.width, this.mainCanvas.height)
 
     this.setBackground()
-    this.setShip()
-    this.setEnemy()
-    this.setEnemyBullet()
-    this.quadTree.clear()
     this.playerScore = 0
     this.quiThink.reset()
 
@@ -179,86 +122,6 @@ class Game {
 
   setBackground () {
     this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
-  }
-
-  setShip () {
-    let shipStartX = this.shipCanvas.width / 2 - imageStorage.ship.width / 2
-    let shipStartY = this.shipCanvas.height * 0.85 + imageStorage.ship.height * 2
-    this.ship.init(shipStartX, shipStartY, window.innerWidth * 0.16, window.innerHeight * 0.125)
-    this.ship.alive = true
-    this.ship.bulletPool.init()
-  }
-
-  setEnemy () {
-    this.enemyPool.init()
-
-    let numEnemy = 18
-    let numEnemyRow = 6
-    let enemyWidth = window.innerWidth * 0.1
-    let enemyHeight = window.innerWidth * 0.1
-    let spaceX = enemyWidth + window.innerWidth * 0.03
-    let spaceY = enemyHeight + window.innerWidth * 0.03
-    let firstX = (this.mainCanvas.width / 2) - (numEnemyRow / 2 - 0.5) * spaceX
-    let firstY = -enemyHeight
-    for (let i = 0; i < numEnemy; i++) {
-      let enemyStartX = firstX + (i % numEnemyRow) * spaceX
-      let enemyStartY = firstY + Math.floor(i / numEnemyRow) * spaceY
-      this.enemyPool.get(enemyStartX, enemyStartY, 3)
-    }
-  }
-
-  setEnemyBullet () {
-    this.enemyBulletPool.init()
-  }
-
-  detectCollision () {
-    let objects1 = this.quadTree.getAllObjects()
-
-    for (let i = 0; i < objects1.length; i++) {
-      let objects2 = this.quadTree.findPossibleCollided(objects1[i])
-
-      for (let j = 0; j < objects2.length; j++) {
-        if (objects1[i].isCollidedWith(objects2[j])) {
-          objects1[i].isCollided = true
-          objects2[j].isCollided = true
-        }
-      }
-    }
-  }
-
-  /**
-   * The animation loop.
-   * Calls the requestAnimationFrame shim to optimize the game loop and draws all game objects.
-   * This function must be a gobal function and cannot be within an object.
-   */
-  animate () {
-    // 打完敵人就重置
-    if (this.enemyPool.getAliveObjects().length === 0) {
-      this.setEnemy()
-    }
-
-    // 更新四元樹內所有物件所屬的區域並偵測碰撞
-    this.quadTree.clear()
-    this.quadTree.insert(this.ship)
-    this.quadTree.insert(this.ship.bulletPool.getAliveObjects())
-    this.quadTree.insert(this.enemyPool.getAliveObjects())
-    this.quadTree.insert(this.enemyBulletPool.getAliveObjects())
-    this.detectCollision()
-
-    // 更新顯示的分數
-    document.getElementById('score').innerHTML = this.playerScore
-
-    // 如果還沒死掉才會重複animate
-    if (this.ship.alive) {
-      window.requestAnimFrame(this.animate)
-
-      this.background.move()
-      this.ship.move()
-      this.ship.fire()
-      this.ship.bulletPool.animate()
-      this.enemyPool.animate()
-      this.enemyBulletPool.animate()
-    }
   }
 }
 
