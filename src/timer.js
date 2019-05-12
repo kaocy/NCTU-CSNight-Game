@@ -6,7 +6,7 @@ class Timer {
     this.timeup = this.timeup.bind(this)
   }
 
-  countdown (sec, doneFn, countFn) {
+  countdown (sec, countFn, doneFn) {
     this.remain = sec
     this.timer = window.setInterval(() => {
       this.remain--
