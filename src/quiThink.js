@@ -1,14 +1,14 @@
 
 import Timer from 'timer'
+import { game } from 'main'
 import { data, QUI } from './assets/resources/quithink'
 
 class QuiThink {
-  constructor (interval = 8, endCallback) {
+  constructor (interval = 8) {
     this.interval = interval // time for one question
     this.timer = new Timer() // new a timer
     this.correct = 0
     this.incorrect = 0
-    this.endCallback = endCallback
     this.show = this.show.bind(this)
     this.clear = this.clear.bind(this)
     this.load = this.load.bind(this)
@@ -46,7 +46,7 @@ class QuiThink {
   }
 
   setQuestion () {
-    this.qs = data[QUI.level][QUI.qno++]
+    this.qs = data['其他'][QUI.qno++]
     let { question, choices, ans } = this.qs
 
     // set question & options
@@ -83,13 +83,14 @@ class QuiThink {
     // 點選項後把interval關掉
     this.timer.timeup()
 
-    let numQuestion = data[QUI.level].length
+    let numQuestion = data['其他'].length
     let { ans } = this.qs
 
     // 看選對選錯給顏色
     if (e.target.classList.contains('ans')) {
       // Pass
       this.correct++
+      game.addScore(10)
       e.target.style.background = 'rgb(64,204,161)'
     } else {
       // Fail
@@ -115,13 +116,13 @@ class QuiThink {
   }
 
   transition () {
-    let numQuestion = data[QUI.level].length
+    let numQuestion = data['其他'].length
     if (QUI.qno < numQuestion) {
       this.setQuestion()
     } else {
       // close
       this.clear()
-      this.endCallback()
+      game.over()
     }
   }
 }

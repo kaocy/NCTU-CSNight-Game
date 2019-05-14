@@ -14,6 +14,7 @@ class Game {
     this.over = this.over.bind(this)
     this.restart = this.restart.bind(this)
     this.setBackground = this.setBackground.bind(this)
+    this.addScore = this.addScore.bind(this)
   }
 
   init () {
@@ -122,6 +123,11 @@ class Game {
 
   setBackground () {
     this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
+  }
+
+  addScore (score) {
+    this.playerScore += score
+    // console.log(this.playerScore)
   }
 }
 
