@@ -2,6 +2,7 @@
 import Text from 'text'
 import Background from 'background'
 import QuiThink from 'quiThink'
+import { data, QUI } from './assets/resources/quithink'
 import { imageStorage, soundStorage } from 'main'
 import { recordScore } from 'api'
 
@@ -57,9 +58,18 @@ class Game {
     // 起始分數
     this.playerScore = 0
 
-    // 問答
-    this.quiThink = new QuiThink(8, this.over)
-
+    // Menu Item 綁定 click 事件
+    for(let i=0; i<10; i++){
+      document.getElementsByClassName('quiMenuItem')[i]
+      .addEventListener('click', (e)=>{
+        document.getElementById('quiMenu').style.display = 'none'
+        this.quiThink = new QuiThink(8, this.over)
+        document.getElementsByClassName('quiMenuItem')[i].classList.add('played')
+        QUI.level = e.target.innerHTML
+        this.quiThink.load()
+      },false)
+    }
+    
     return true
   }
 
@@ -69,10 +79,10 @@ class Game {
     document.getElementsByClassName('score')[0].style.display = 'none'
 
     let text = new Text()
-    let text2 = new Text()
-    let text3 = new Text()
-    let text4 = new Text()
-    let text5 = new Text()
+    // let text2 = new Text()
+    // let text3 = new Text()
+    // let text4 = new Text()
+    // let text5 = new Text()
 
     text.init('從前從前...', this.start)
     // text2.init('在一個偏僻的美食沙漠，有一間號稱工具人大學', text3.register)
@@ -90,7 +100,9 @@ class Game {
 
     // soundStorage.backgroundAudio.currentTime = 0
     // soundStorage.backgroundAudio.play()
-    this.quiThink.load()
+
+    document.getElementById('quiMenu').style.display = 'block'
+    document.getElementById('quiMenu').classList.add('initMove')
   }
 
   over () {
@@ -98,6 +110,7 @@ class Game {
     // soundStorage.gameOverAudio.currentTime = 0
     // soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
+    document.getElementById('quiMenu').classList.remove('initMove')
 
     // 送api request
     // recordScore({
@@ -118,7 +131,7 @@ class Game {
     this.playerScore = 0
     this.quiThink.reset()
 
-    this.introduce()
+    this.start()
   }
 
   setBackground () {

@@ -16,6 +16,8 @@ class QuiThink {
     this.setQuestion = this.setQuestion.bind(this)
     this.checkAns = this.checkAns.bind(this)
     this.transition = this.transition.bind(this)
+    this.resetOption = this.resetOption.bind(this)
+    this.setQuiBar = this.setQuiBar.bind(this)
   }
 
   show () {
@@ -36,19 +38,38 @@ class QuiThink {
     this.setQuestion()
   }
 
-  reset () {
+  reset() {
     this.correct = 0
     this.incorrect = 0
-    QUI.level = 0
     QUI.qno = 0
-    document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', '0%')
-    document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', '0%')
+    this.setQuiBar()
   }
 
+  resetOption(){
+    let {ans} = this.qs
+    // 把ans class拿掉 不然下一題會被影響
+    document.getElementsByClassName('quiOption')[ans-1].classList.remove('ans')
+    // 把選項的event listener關掉
+    document.getElementsByClassName('quiOption')[0].removeEventListener('click', this.checkAns)
+    document.getElementsByClassName('quiOption')[1].removeEventListener('click', this.checkAns)
+    document.getElementsByClassName('quiOption')[2].removeEventListener('click', this.checkAns)
+    document.getElementsByClassName('quiOption')[3].removeEventListener('click', this.checkAns)
+    // 更新sideBar分數條
+    this.setQuiBar()
+    // 等待一秒進下一題
+    window.setTimeout(this.transition, 1000)
+  }
+  setQuiBar(){
+    let numQuestion = data[QUI.level].length
+    // 分數條顯示(最大值為1)
+    let leftScore = this.correct / numQuestion
+    let rightScore = this.incorrect / numQuestion
+    document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', `${parseInt(leftScore * 100)}%`)
+    document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', `${parseInt(rightScore * 100)}%`)
+  }
   setQuestion () {
-    this.qs = data['其他'][QUI.qno++]
+    this.qs = data[QUI.level][QUI.qno++]
     let { question, choices, ans } = this.qs
-
     // set question & options
     document.getElementsByClassName('quiOption')[0].style.background = 'rgb(238, 238, 238)'
     document.getElementsByClassName('quiOption')[1].style.background = 'rgb(238, 238, 238)'
@@ -62,18 +83,20 @@ class QuiThink {
       ele.addEventListener('click', this.checkAns, false)
     })
     // 加入ans class 答案顯示綠色
-    document.getElementsByClassName('quiOption')[ans].classList.add('ans')
-
+    document.getElementsByClassName('quiOption')[ans-1].classList.add('ans')
     // set time
     let showTime = document.getElementById('quiTimer')
     showTime.innerHTML = this.interval
 
     this.timer.countdown(
       this.interval,
-      (remain) => { showTime.innerHTML = remain },
+      (remain) => { 
+        showTime.innerHTML = remain
+      },
       () => {
-        document.getElementsByClassName('quiOption')[ans].style.background = 'rgb(64,204,161)'
-        window.setTimeout(this.transition, 1000)
+        this.incorrect ++
+        document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
+        this.resetOption()
       }
     )
     this.show()
@@ -83,7 +106,6 @@ class QuiThink {
     // 點選項後把interval關掉
     this.timer.timeup()
 
-    let numQuestion = data['其他'].length
     let { ans } = this.qs
 
     // 看選對選錯給顏色
@@ -97,26 +119,13 @@ class QuiThink {
       this.incorrect++
       e.target.style.background = 'rgb(223,95,98)'
       // 顯示正確答案
-      document.getElementsByClassName('quiOption')[ans].style.background = 'rgb(64,204,161)'
+      document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
     }
-
-    // 把ans class拿掉 不然下一題會被影響
-    document.getElementsByClassName('quiOption')[ans].classList.remove('ans')
-
-    // 把選項的event listener關掉
-    document.getElementsByClassName('quiOption')[0].removeEventListener('click', this.checkAns)
-    document.getElementsByClassName('quiOption')[1].removeEventListener('click', this.checkAns)
-    document.getElementsByClassName('quiOption')[2].removeEventListener('click', this.checkAns)
-    document.getElementsByClassName('quiOption')[3].removeEventListener('click', this.checkAns)
-    document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', `${parseInt(this.correct / numQuestion * 100)}%`)
-    document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', `${parseInt((this.incorrect / numQuestion) * 100)}%`)
-
-    // 等待一秒進下一題
-    window.setTimeout(this.transition, 1000)
+    this.resetOption()
   }
 
   transition () {
-    let numQuestion = data['其他'].length
+    let numQuestion = data[QUI.level].length
     if (QUI.qno < numQuestion) {
       this.setQuestion()
     } else {
