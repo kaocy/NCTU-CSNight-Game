@@ -1,7 +1,7 @@
 
 import Timer from 'timer'
 import { game } from 'main'
-import { QUI, data } from './assets/resources/quithink'
+import { QUI, data } from './assets/resources/question'
 
 class QuiThink {
   constructor (interval = 8) {

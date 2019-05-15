@@ -2,7 +2,7 @@
 import Text from 'text'
 import Background from 'background'
 import QuiThink from 'quiThink'
-import { data, QUI } from './assets/resources/quithink'
+import { data, QUI } from './assets/resources/question'
 import { imageStorage, soundStorage } from 'main'
 import { recordScore } from 'api'
 
