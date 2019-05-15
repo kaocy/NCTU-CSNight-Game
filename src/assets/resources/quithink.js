@@ -9,34 +9,34 @@ let QUI = {
 
 // 每個attribute對應到一個關卡(共10個)
 const data = {
-  '001': [
+  '白爛題': [
     {
-      question: '有天阿志打電話到四次函數家找常數，\n請問阿志要喂幾次才能找到他？',
+      question: '請問「欸～你是誰？」是誰的口頭禪？',
       choices: [
-        '喂',
-        '喂喂',
-        '喂喂喂',
-        '喂喂喂喂'
+        '趟延思',
+        '趙廷思',
+        '趙廷恩',
+        '趙延恩'
       ],
-      ans: 4
+      ans: 3
     },
     {
-      question: 'This is a question<br>Ans: Option d',
+      question: 'Google首頁的字母O分別是甚麼顏色',
       choices: [
-        'Option a',
-        'Option b',
-        'Option c',
-        'Option d'
+        '紅色/黃色',
+        '黃色/藍色',
+        '藍色/綠色',
+        '綠色/紅色'
       ],
-      ans: 4
+      ans: 1
     },
     {
-      question: 'This is a good question<br>Ans: Option ii',
+      question: '請問Mac系列筆電從哪一年開始蘋果LOGO燈不再發亮',
       choices: [
-        'Option i',
-        'Option ii',
-        'Option iii',
-        'Option iv'
+        '2014',
+        '2015',
+        '2016',
+        '2017'
       ],
       ans: 2
     }
