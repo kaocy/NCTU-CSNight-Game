@@ -1,7 +1,10 @@
 
 let QUI = {
   level: null,
-  qno: 0
+  qno: 0,
+  length: 2, // 每個向度要出幾題
+  dimensionLength: [3, 3], // 每個向度有幾題
+  random: []
 }
 
 // 每個attribute對應到一個關卡(共10個)

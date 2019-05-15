@@ -1,7 +1,7 @@
 
 import Timer from 'timer'
 import { game } from 'main'
-import { data, QUI } from './assets/resources/quithink'
+import { QUI, data } from './assets/resources/quithink'
 
 class QuiThink {
   constructor (interval = 8) {
@@ -35,18 +35,26 @@ class QuiThink {
 
   // 開始問答
   load () {
+    // 隨機選出該向度的題目組
+    QUI.random.length = 0
+    while (QUI.random.length < QUI.length) {
+      let length = QUI.dimensionLength[QUI.random.length] // 要生的向度的總題數
+      let num = Math.floor((Math.random() * length))
+      if (QUI.random.indexOf(num) === -1) QUI.random.push(num)
+    }
+    // console.log(QUI.length, QUI.random)
     this.setQuestion()
   }
 
-  reset() {
+  reset () {
     this.correct = 0
     this.incorrect = 0
     QUI.qno = 0
     this.setQuiBar()
   }
 
-  resetOption(){
-    let {ans} = this.qs
+  resetOption () {
+    let { ans } = this.qs
     // 把ans class拿掉 不然下一題會被影響
     document.getElementsByClassName('quiOption')[ans-1].classList.remove('ans')
     // 把選項的event listener關掉
@@ -59,7 +67,8 @@ class QuiThink {
     // 等待一秒進下一題
     window.setTimeout(this.transition, 1000)
   }
-  setQuiBar(){
+
+  setQuiBar () {
     let numQuestion = data[QUI.level].length
     // 分數條顯示(最大值為1)
     let leftScore = this.correct / numQuestion
@@ -67,8 +76,9 @@ class QuiThink {
     document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', `${parseInt(leftScore * 100)}%`)
     document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', `${parseInt(rightScore * 100)}%`)
   }
+
   setQuestion () {
-    this.qs = data[QUI.level][QUI.qno++]
+    this.qs = data[QUI.level][QUI.random[ QUI.qno++] ]
     let { question, choices, ans } = this.qs
     // set question & options
     document.getElementsByClassName('quiOption')[0].style.background = 'rgb(238, 238, 238)'
@@ -94,7 +104,7 @@ class QuiThink {
         showTime.innerHTML = remain
       },
       () => {
-        this.incorrect ++
+        this.incorrect++
         document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
         this.resetOption()
       }
@@ -125,8 +135,7 @@ class QuiThink {
   }
 
   transition () {
-    let numQuestion = data[QUI.level].length
-    if (QUI.qno < numQuestion) {
+    if (QUI.qno < QUI.length) {
       this.setQuestion()
     } else {
       // close

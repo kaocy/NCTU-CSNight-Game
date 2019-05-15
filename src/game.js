@@ -59,15 +59,14 @@ class Game {
     this.playerScore = 0
 
     // Menu Item 綁定 click 事件
-    for(let i=0; i<10; i++){
-      document.getElementsByClassName('quiMenuItem')[i]
-      .addEventListener('click', (e)=>{
+    for(let i = 0; i < 10; i++){
+      document.getElementsByClassName('quiMenuItem')[i].addEventListener('click', (e) => {
         document.getElementById('quiMenu').style.display = 'none'
         this.quiThink = new QuiThink(8, this.over)
         document.getElementsByClassName('quiMenuItem')[i].classList.add('played')
         QUI.level = e.target.innerHTML
         this.quiThink.load()
-      },false)
+      }, false)
     }
     
     return true
