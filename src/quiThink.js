@@ -5,19 +5,20 @@ import { QUI, data } from './assets/resources/question'
 
 class QuiThink {
   constructor (interval = 8) {
-    this.interval = interval // time for one question
-    this.timer = new Timer() // new a timer
-    this.correct = 0
-    this.incorrect = 0
+    this.interval = interval // 一題的時間
+    this.currentScore = 0    // 一個向度的總分
+    this.continue = 0        // 連續答對題數
+    this.timer = new Timer()
+
     this.show = this.show.bind(this)
     this.clear = this.clear.bind(this)
     this.load = this.load.bind(this)
     this.reset = this.reset.bind(this)
+    this.resetOption = this.resetOption.bind(this)
     this.setQuestion = this.setQuestion.bind(this)
+    this.setQuiBar = this.setQuiBar.bind(this)
     this.checkAns = this.checkAns.bind(this)
     this.transition = this.transition.bind(this)
-    this.resetOption = this.resetOption.bind(this)
-    this.setQuiBar = this.setQuiBar.bind(this)
   }
 
   show () {
@@ -35,6 +36,7 @@ class QuiThink {
 
   // 開始問答
   load () {
+    this.currentScore = 0
     // 隨機選出該向度的題目組
     QUI.random.length = 0
     while (QUI.random.length < QUI.length) {
@@ -47,23 +49,27 @@ class QuiThink {
   }
 
   reset () {
-    this.correct = 0
-    this.incorrect = 0
     QUI.qno = 0
+    this.currentScore = 0
+    this.continue = 0
     this.setQuiBar()
   }
 
   resetOption () {
     let { ans } = this.qs
+
     // 把ans class拿掉 不然下一題會被影響
     document.getElementsByClassName('quiOption')[ans-1].classList.remove('ans')
+
     // 把選項的event listener關掉
     document.getElementsByClassName('quiOption')[0].removeEventListener('click', this.checkAns)
     document.getElementsByClassName('quiOption')[1].removeEventListener('click', this.checkAns)
     document.getElementsByClassName('quiOption')[2].removeEventListener('click', this.checkAns)
     document.getElementsByClassName('quiOption')[3].removeEventListener('click', this.checkAns)
+
     // 更新sideBar分數條
     this.setQuiBar()
+
     // 等待一秒進下一題
     window.setTimeout(this.transition, 1000)
   }
@@ -71,10 +77,10 @@ class QuiThink {
   setQuiBar () {
     let numQuestion = data[QUI.level].length
     // 分數條顯示(最大值為1)
-    let leftScore = this.correct / numQuestion
-    let rightScore = this.incorrect / numQuestion
+    let leftScore = this.currentScore / QUI.maxScore
+    // let rightScore = this.incorrect / numQuestion
     document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', `${parseInt(leftScore * 100)}%`)
-    document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', `${parseInt(rightScore * 100)}%`)
+    // document.getElementsByClassName('quiBar')[1].pseudoStyle('after', 'height', `${parseInt(rightScore * 100)}%`)
   }
 
   setQuestion () {
@@ -92,8 +98,10 @@ class QuiThink {
       ele.innerHTML = choice
       ele.addEventListener('click', this.checkAns, false)
     })
+
     // 加入ans class 答案顯示綠色
     document.getElementsByClassName('quiOption')[ans-1].classList.add('ans')
+
     // set time
     let showTime = document.getElementById('quiTimer')
     showTime.innerHTML = this.interval
@@ -104,7 +112,6 @@ class QuiThink {
         showTime.innerHTML = remain
       },
       () => {
-        this.incorrect++
         document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
         this.resetOption()
       }
@@ -121,17 +128,18 @@ class QuiThink {
     // 看選對選錯給顏色
     if (e.target.classList.contains('ans')) {
       // Pass
-      this.correct++
-      game.addScore(10)
+      this.currentScore += QUI.score[this.timer.remain] * QUI.bonus[this.continue]
+      this.continue++
       e.target.style.background = 'rgb(64,204,161)'
     } else {
       // Fail
-      this.incorrect++
+      this.continue = 0
       e.target.style.background = 'rgb(223,95,98)'
       // 顯示正確答案
       document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
     }
     this.resetOption()
+    console.log(this.currentScore)
   }
 
   transition () {
@@ -140,6 +148,7 @@ class QuiThink {
     } else {
       // close
       this.clear()
+      game.addScore(this.currentScore) // 一個向度結束後更新遊戲總分
       game.over()
     }
   }

@@ -9,6 +9,7 @@ import { recordScore } from 'api'
 // 整體遊戲 包含所有會用到的物件
 class Game {
   constructor () {
+    this.totalScore = 0 // 所有向度的總分
     this.init = this.init.bind(this)
     this.introduce = this.introduce.bind(this)
     this.start = this.start.bind(this)
@@ -55,9 +56,6 @@ class Game {
     this.background = new Background()
     this.setBackground()
 
-    // 起始分數
-    this.playerScore = 0
-
     // Menu Item 綁定 click 事件
     for(let i = 0; i < 10; i++){
       document.getElementsByClassName('quiMenuItem')[i].addEventListener('click', (e) => {
@@ -102,7 +100,7 @@ class Game {
     // 送api request
     // recordScore({
     //   pid: window.getCookie('pid'),
-    //   score: this.playerScore
+    //   score: this.totalScore
     // })
   }
 
@@ -115,7 +113,6 @@ class Game {
     this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
 
     this.setBackground()
-    this.playerScore = 0
     this.quiThink.reset()
 
     this.start()
@@ -126,8 +123,8 @@ class Game {
   }
 
   addScore (score) {
-    this.playerScore += score
-    // console.log(this.playerScore)
+    this.totalScore += score
+    console.log(this.totalScore)
   }
 }
 
