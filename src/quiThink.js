@@ -36,11 +36,12 @@ class QuiThink {
 
   // 開始問答
   load () {
+    console.log(QUI.level)
     this.currentScore = 0
     // 隨機選出該向度的題目組
     QUI.random.length = 0
     while (QUI.random.length < QUI.length) {
-      let length = QUI.dimensionLength[QUI.random.length] // 要生的向度的總題數
+      let length = QUI.dimensionLength[QUI.level] // 要生的向度的總題數
       let num = Math.floor((Math.random() * length))
       if (QUI.random.indexOf(num) === -1) QUI.random.push(num)
     }
@@ -84,7 +85,8 @@ class QuiThink {
   }
 
   setQuestion () {
-    this.qs = data[QUI.level][QUI.random[ QUI.qno++] ]
+    console.log(QUI.level, QUI.qno, QUI.random[QUI.qno])
+    this.qs = data[QUI.level][QUI.random[ QUI.qno++ ]]
     let { question, choices, ans } = this.qs
     // set question & options
     document.getElementsByClassName('quiOption')[0].style.background = 'rgb(238, 238, 238)'

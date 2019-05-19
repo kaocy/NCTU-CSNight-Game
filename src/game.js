@@ -116,7 +116,7 @@ class Game {
 
   addScore (score) {
     this.totalScore += score
-    console.log(this.totalScore)
+    // console.log(this.totalScore)
   }
 }
 
