@@ -36,16 +36,14 @@ class QuiThink {
 
   // 開始問答
   load () {
-    console.log(QUI.level)
     this.currentScore = 0
     // 隨機選出該向度的題目組
     QUI.random.length = 0
     while (QUI.random.length < QUI.length) {
-      let length = QUI.dimensionLength[QUI.level] // 要生的向度的總題數
+      let length = data[QUI.level].length // 要生的向度的總題數
       let num = Math.floor((Math.random() * length))
       if (QUI.random.indexOf(num) === -1) QUI.random.push(num)
     }
-    // console.log(QUI.length, QUI.random)
     this.setQuestion()
   }
 
@@ -141,7 +139,7 @@ class QuiThink {
       document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
     }
     this.resetOption()
-    console.log(this.currentScore)
+    // console.log(this.currentScore)
   }
 
   transition () {
