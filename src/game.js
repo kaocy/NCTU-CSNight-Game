@@ -3,7 +3,7 @@ import Text from 'text'
 import Background from 'background'
 import QuiThink from 'quiThink'
 import { data, QUI } from './assets/resources/question'
-import { imageStorage, soundStorage } from 'main'
+import { imageStorage } from 'main'
 import { recordScore } from 'api'
 
 // 整體遊戲 包含所有會用到的物件
@@ -74,7 +74,6 @@ class Game {
     document.getElementsByClassName('score')[0].style.display = 'none'
 
     // let text = new Text()
-
     // text.init('從前從前...', this.start)
     // text.register()
     this.start()
@@ -83,17 +82,11 @@ class Game {
   start () {
     // document.getElementsByClassName('score')[0].style.display = 'block'
 
-    // soundStorage.backgroundAudio.currentTime = 0
-    // soundStorage.backgroundAudio.play()
-
     document.getElementById('quiMenu').style.display = 'block'
     document.getElementById('quiMenu').classList.add('initMove')
   }
 
   over () {
-    // soundStorage.backgroundAudio.pause()
-    // soundStorage.gameOverAudio.currentTime = 0
-    // soundStorage.gameOverAudio.play()
     document.getElementById('game-over').style.display = 'block'
     document.getElementById('quiMenu').classList.remove('initMove')
 
@@ -106,7 +99,6 @@ class Game {
 
   // 將物件位置初始化並清空畫布後再開始
   restart () {
-    // soundStorage.gameOverAudio.pause()
     document.getElementById('game-over').style.display = 'none'
 
     this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)

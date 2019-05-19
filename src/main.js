@@ -1,19 +1,17 @@
 
 import Game from 'game'
 import ImageStorage from 'imageStorage'
-import SoundStorage from 'soundStorage'
 import 'assets/stylesheets/index.scss'
 
 let game = new Game()
 let imageStorage = new ImageStorage()
-let soundStorage = new SoundStorage()
 let startButton = document.getElementById('start')
 let scoreElement = document.getElementById('score')
 let restartElement = document.getElementById('game-over')
 
 // 確認圖片和音效都載入完成
 let checkLoading = window.setInterval(() => {
-  if (imageStorage.finishLoading() && soundStorage.finishLoading()) {
+  if (imageStorage.finishLoading()) {
     window.clearInterval(checkLoading)
 
     // game初始完才開始
@@ -86,4 +84,4 @@ window.setCookie = function (name, value) {
   document.cookie = name + '=' + escape(value)
 }
 
-export { game, imageStorage, soundStorage }
+export { game, imageStorage }
