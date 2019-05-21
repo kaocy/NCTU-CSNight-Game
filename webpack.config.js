@@ -5,6 +5,9 @@ const WebpackNotifierPlugin = require('webpack-notifier')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const plugins = [
+  new webpack.DefinePlugin({
+    SERVER_URL: '"https://g524.csunion.nctu.me"'
+  }),
   new webpack.NoEmitOnErrorsPlugin(),
   new WebpackNotifierPlugin(),
   new HtmlWebpackPlugin({

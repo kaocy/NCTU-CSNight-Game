@@ -9,7 +9,7 @@ let startButton = document.getElementById('start')
 let scoreElement = document.getElementById('score')
 let restartElement = document.getElementById('game-over')
 
-// 確認圖片和音效都載入完成
+// 確認圖片都載入完成
 let checkLoading = window.setInterval(() => {
   if (imageStorage.finishLoading()) {
     window.clearInterval(checkLoading)
@@ -23,9 +23,10 @@ let checkLoading = window.setInterval(() => {
 
 // handle click event
 startButton.addEventListener('click', () => {
-  // 把player_id存在cookie
+  // 把pid存在localStorage
   let pid = document.getElementById('pid').value
-  window.setCookie('pid', pid)
+  console.log(pid)
+  window.localStorage.setItem('pid', pid)
 
   document.getElementById('init').style.display = 'none'
   game.introduce()

@@ -1,13 +1,13 @@
 
 import Timer from 'timer'
 import { game } from 'main'
-import { QUI, data } from './assets/resources/question'
+import { QUI, section, data } from './assets/resources/question'
 
 class QuiThink {
   constructor (interval = 8) {
     this.interval = interval // 一題的時間
     this.currentScore = 0    // 一個向度的總分
-    this.continue = 0        // 連續答對題數
+    this.continuous = 0        // 連續答對題數
     this.timer = new Timer()
 
     this.show = this.show.bind(this)
@@ -50,7 +50,7 @@ class QuiThink {
   reset () {
     QUI.qno = 0
     this.currentScore = 0
-    this.continue = 0
+    this.continuous = 0
     this.setQuiBar()
   }
 
@@ -83,7 +83,7 @@ class QuiThink {
   }
 
   setQuestion () {
-    console.log(QUI.level, QUI.qno, QUI.random[QUI.qno])
+    // console.log(QUI.level, QUI.qno, QUI.random[QUI.qno])
     this.qs = data[QUI.level][QUI.random[ QUI.qno++ ]]
     let { question, choices, ans } = this.qs
     // set question & options
@@ -128,12 +128,12 @@ class QuiThink {
     // 看選對選錯給顏色
     if (e.target.classList.contains('ans')) {
       // Pass
-      this.currentScore += QUI.score[this.timer.remain] * QUI.bonus[this.continue]
-      this.continue++
+      this.currentScore += QUI.score[this.timer.remain] * QUI.bonus[this.continuous]
+      this.continuous++
       e.target.style.background = 'rgb(64,204,161)'
     } else {
       // Fail
-      this.continue = 0
+      this.continuous = 0
       e.target.style.background = 'rgb(223,95,98)'
       // 顯示正確答案
       document.getElementsByClassName('quiOption')[ans-1].style.background = 'rgb(64,204,161)'
@@ -148,7 +148,7 @@ class QuiThink {
     } else {
       // close
       this.clear()
-      game.addScore(this.currentScore) // 一個向度結束後更新遊戲總分
+      game.addScore(section[QUI.level], this.currentScore) // 一個向度結束後更新遊戲總分
       game.over()
     }
   }

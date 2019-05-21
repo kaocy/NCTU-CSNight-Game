@@ -89,12 +89,6 @@ class Game {
   over () {
     document.getElementById('game-over').style.display = 'block'
     document.getElementById('quiMenu').classList.remove('initMove')
-
-    // 送api request
-    // recordScore({
-    //   pid: window.getCookie('pid'),
-    //   score: this.totalScore
-    // })
   }
 
   // 將物件位置初始化並清空畫布後再開始
@@ -114,9 +108,16 @@ class Game {
     this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
   }
 
-  addScore (score) {
+  addScore (section, score) {
     this.totalScore += score
     // console.log(this.totalScore)
+
+    // 送api request
+    recordScore({
+      pid: window.localStorage.getItem('pid'),
+      section: section,
+      score: this.totalScore
+    })
   }
 }
 
