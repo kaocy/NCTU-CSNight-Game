@@ -5,11 +5,13 @@ import QuiThink from 'quiThink'
 import { data, QUI } from './assets/resources/question'
 import { imageStorage } from 'main'
 import { recordScore } from 'api'
+import bindAnimation from 'util'
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
   constructor () {
     this.totalScore = 0 // 所有向度的總分
+    this.playing = null
     this.init = this.init.bind(this)
     this.introduce = this.introduce.bind(this)
     this.start = this.start.bind(this)
@@ -59,11 +61,16 @@ class Game {
     // Menu Item 綁定 click 事件
     for(let i = 0; i < 10; i++){
       document.getElementsByClassName('quiMenuItem')[i].addEventListener('click', (e) => {
-        document.getElementById('quiMenu').style.display = 'none'
-        this.quiThink = new QuiThink(8, this.over)
-        document.getElementsByClassName('quiMenuItem')[i].classList.add('played')
+        this.playing = i
         QUI.level = e.target.innerHTML
-        this.quiThink.load()
+        this.quiThink = new QuiThink(8, this.over)
+        document.getElementById('quiMenu').bindAnimation(
+          'slideOut',1,
+          (self)=> {
+            self.style.display = 'none'
+            this.quiThink.load()
+          }
+        )
       }, false)
     }
     
@@ -83,12 +90,17 @@ class Game {
     // document.getElementsByClassName('score')[0].style.display = 'block'
 
     document.getElementById('quiMenu').style.display = 'block'
-    document.getElementById('quiMenu').classList.add('initMove')
+    document.getElementById('quiMenu').bindAnimation('initMove',2)
+
   }
 
   over () {
     document.getElementById('game-over').style.display = 'block'
-    document.getElementById('quiMenu').classList.remove('initMove')
+    // 送api request
+    // recordScore({
+    //   pid: window.getCookie('pid'),
+    //   score: this.totalScore
+    // })
   }
 
   // 將物件位置初始化並清空畫布後再開始
@@ -101,7 +113,10 @@ class Game {
     this.setBackground()
     this.quiThink.reset()
 
-    this.start()
+    document.getElementById('quiMenu').style.display = 'block'
+    document.getElementById('quiMenu').bindAnimation('initMove',2,()=>{
+      document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
+    })
   }
 
   setBackground () {

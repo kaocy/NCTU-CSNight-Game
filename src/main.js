@@ -23,7 +23,11 @@ let checkLoading = window.setInterval(() => {
 
 // handle click event
 startButton.addEventListener('click', () => {
-  // 把pid存在localStorage
+  // fullscreen
+  if (document.fullscreenEnabled) {
+    //requestFullscreen(document.documentElement)
+  }
+  // 把player_id存在cookie
   let pid = document.getElementById('pid').value
   console.log(pid)
   window.localStorage.setItem('pid', pid)
@@ -56,6 +60,19 @@ HTMLElement.prototype.pseudoStyle = function (element, prop, value) {
   return this
 }
 
+const wait = (ms) => (new Promise(r => setTimeout(r, ms)))
+
+HTMLElement.prototype.bindAnimation = async function (animation, time, callback = ()=>{}){
+  // 須先將 css keyframe 寫入 stylesheet 中
+  let DOMElement = this
+  DOMElement.classList.add(animation)
+  await wait(time * 1000)
+  DOMElement.classList.remove(animation)
+  callback(this)
+  return this
+  // can return late
+}
+
 /**
  * requestAnim shim layer by Paul Irish
  * Finds the first API that works to optimize the animation loop,
@@ -83,6 +100,20 @@ window.getCookie = function (name) {
 // global set cookie method
 window.setCookie = function (name, value) {
   document.cookie = name + '=' + escape(value)
+}
+
+document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen
+
+function requestFullscreen(element) {
+	if (element.requestFullscreen) {
+		element.requestFullscreen()
+  }
+  else if (element.mozRequestFullScreen) {
+		element.mozRequestFullScreen()
+  }
+  else if (element.webkitRequestFullScreen) {
+		element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
+	}
 }
 
 export { game, imageStorage }
