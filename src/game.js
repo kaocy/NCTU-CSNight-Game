@@ -72,10 +72,6 @@ class Game {
 
   introduce () {
     document.getElementsByClassName('score')[0].style.display = 'none'
-
-    // let text = new Text()
-    // text.init('從前從前...', this.start)
-    // text.register()
     this.start()
   }
 
@@ -108,14 +104,13 @@ class Game {
     this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
   }
 
-  addScore (section, score) {
+  addScore (score) {
     this.totalScore += score
     // console.log(this.totalScore)
 
     // 送api request
     recordScore({
       pid: window.localStorage.getItem('pid'),
-      section: section,
       score: this.totalScore
     })
   }
