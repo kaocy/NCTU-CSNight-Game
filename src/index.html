@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 </head>
 
 <body>
@@ -20,7 +21,6 @@
         <div id="start">START</div>
     </div>
 
-    <div class="score">SCORE: <span id="score"></span></div>
     <div id="quiMenu">
         <div class="quiMenuItem">白爛題</div>
         <div class="quiMenuItem">電玩知識題</div>
@@ -44,7 +44,13 @@
             <div class="quiPlayer"></div>
         </div>
         <div id="quiContent">
-            <div id="quiQuestion"></div>
+            <div id="quiTitle">
+                <div id="label"></div>
+                <div id="number"></div>
+            </div>
+            <div id="quiQuestion">
+                <div id="quiQContent"></div>
+            </div>
             <div id="quiOptions">
                 <div class="quiOption"></div>
                 <div class="quiOption"></div>
@@ -54,8 +60,17 @@
         </div>
     </div>
     <div class="game-over" id="game-over">
-        GAME OVER
-        <span>Restart</span>
+        <table>
+            <tr id='score1'>
+                <td>此關分數</td>
+                <td id="currentScore">20</td>
+            </tr>
+            <tr id='score2'>
+                <td>結算總分</td>
+                <td id="allScore"></td>
+            </tr>
+        </table>
+        <div class='btn' id='return'>回到主選單</div>
     </div>
 </body>
 </html>

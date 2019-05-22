@@ -1,0 +1,53 @@
+@keyframes zoomIn2{
+    from {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes left-up{
+    from {
+        transform: translate(-100%, -100%);
+    }
+    to {transform: translate(0,0)}
+}
+
+@keyframes right-up{
+    from {
+        transform: translate(100%, -100%);
+    }
+    to {transform: translate(0,0)}
+}
+
+@keyframes pulse-true{
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: scale3d(1.05, 1.05, 1.05);
+        background: rgb(64,204,161);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse-false{
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: scale3d(1.05, 1.05, 1.05);
+        background: rgb(223,95,98);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}

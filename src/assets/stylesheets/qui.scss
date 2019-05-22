@@ -1,3 +1,4 @@
+@import 'keyframe.scss';
 $PlayerColor: rgb(117, 137, 165);
 $NPCColor:rgb(192, 132, 132);
 
@@ -20,32 +21,7 @@ $COLORS:#3BACB6
         }
     }
 }
-@keyframes l2r{
-    from {
-        left: -100%;
-    }
-    to {
-        left: 0;
-    }
-}
 
-@keyframes r2l{
-    from {
-        right: -100%;
-    }
-    to {
-        right: 0;
-    }
-}
-
-@keyframes fade-out{
-    from{
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
-}
 #quiMenu{
     height: 100%;
     width: 100%;
@@ -67,6 +43,7 @@ $COLORS:#3BACB6
         padding: 3%;
         margin-bottom: 1%;
         @include config-bg($COLORS...);
+        transition: .3s;
         &.played{
             pointer-events: none;
             background: #aaa;
@@ -75,14 +52,22 @@ $COLORS:#3BACB6
     }
     &.initMove{
         .quiMenuItem:nth-child(odd){
-            animation:l2r 2s;
+            animation:slideInRight 1.5s;
         }
         .quiMenuItem:nth-child(even){
-            animation:r2l 2s;
+            animation:slideInLeft 1.5s;
         }
     }
     &.fadeOut{
-        animation: fade-out 1s;
+        animation: fadeOut 1s;
+    }
+    &.slideOut{
+        .quiMenuItem:nth-child(odd){
+            animation:slideOutLeft 1s;
+        }
+        .quiMenuItem:nth-child(even){
+            animation:slideOutRight 1s;
+        }
     }
 }
 #quickThink{
@@ -125,22 +110,63 @@ $COLORS:#3BACB6
             text-align: center;
             user-select: none;
         }
+        &.timerLoad{
+            #quiTimer{
+                animation: zoomIn2 500ms ease-out;
+            }
+        }
+        &.getInto{
+            .quiPlayer{
+                &:first-child{
+                    animation: left-up 250ms ease-in;
+                }
+                &:last-child{
+                    animation: right-up 250ms ease-in;
+                }
+            }
+        }
     }
     #quiContent{
         position: absolute;
+        user-select: none;
         left: 0;
         top: 30%;
         height: 75%;
         width: 100%;
         font-size: 1.2rem;
         padding-top: 5%;
+        #quiTitle{
+            position: absolute;
+            user-select: none;
+            left: 0;
+            top: 30%;
+            #label{
+                
+            }
+            #number{
+
+            }
+        }
         #quiQuestion{
+            position: fixed;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 25%;
             width: 63%;
-            text-align: justify;
-            margin: 0 auto;
+            display: flex;
+            #quiQContent{
+                align-self: center;
+                text-align: justify;
+            }
         }
         #quiOptions{
-            margin-top: 12%;
+            position: fixed;
+            width: 100%;
+            height: 50%;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
             .quiOption{
                 cursor: pointer;
                 $color:rgb(238, 238, 238);
@@ -151,11 +177,35 @@ $COLORS:#3BACB6
                 margin: 4% auto;
                 border-radius: 2px;
                 text-align: center;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 cursor: pointer;
                 &:hover{
                     transition: .3s;
                     background: darken($color,10);
                 }
+                &.click-true{
+                    animation: pulse-true 150ms;
+                }
+                &.click-false{
+                    animation: pulse-false 150ms;
+                }
+            }
+        }
+        &.TitleLoad{
+            #quiTitle{
+                animation: flipInX 250ms;
+            }
+        }
+        &.QLoad{
+            #quiQuestion{
+                animation: fadeIn 250ms;
+            }
+        }
+        &.ALoad{
+            #quiOptions{
+                animation: bounceIn 400ms;
             }
         }
     }
@@ -178,6 +228,7 @@ $COLORS:#3BACB6
                 border: 2px solid transparent;
                 width: 3vw;
                 box-sizing: border-box;
+                transition: ease-out;
             }
             &:first-child{
                 left: 4%;
