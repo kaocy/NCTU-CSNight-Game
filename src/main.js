@@ -64,10 +64,6 @@ const wait = (ms) => (new Promise(r => setTimeout(r, ms)))
 
 HTMLElement.prototype.bindAnimation = async function (animation, time, callback = ()=>{}){
   // 須先將 css keyframe 寫入 stylesheet 中
-<<<<<<< HEAD
-  console.log(animation)
-=======
->>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
   let DOMElement = this
   DOMElement.classList.add(animation)
   await wait(time * 1000)
