@@ -5,13 +5,20 @@ import QuiThink from 'quiThink'
 import { data, QUI } from './assets/resources/question'
 import { imageStorage } from 'main'
 import { recordScore } from 'api'
+<<<<<<< HEAD
 import { game } from './main';
+=======
+import bindAnimation from 'util'
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
   constructor () {
     this.totalScore = 0 // 所有向度的總分
+<<<<<<< HEAD
     this.currentScore = 0
+=======
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
     this.playing = null
     this.init = this.init.bind(this)
     this.introduce = this.introduce.bind(this)
@@ -69,7 +76,10 @@ class Game {
           'slideOut',1,
           (self)=> {
             self.style.display = 'none'
+<<<<<<< HEAD
             document.getElementsByClassName('quiMenuItem')[i].style.pointerEvents = 'none'
+=======
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
             this.quiThink.load()
           }
         )
@@ -91,12 +101,18 @@ class Game {
     
     document.getElementById('quiMenu').style.display = 'block'
     document.getElementById('quiMenu').bindAnimation('initMove',2)
+<<<<<<< HEAD
+=======
+
+  }
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
 
   }
   
   over () {
 <<<<<<< 1b0a7443bd2bf8aafafdbb734e847f453039aa78
     document.getElementById('game-over').style.display = 'block'
+<<<<<<< HEAD
 =======
     if(document.getElementsByClassName('played').length === 9){
       document.getElementById('return').innerHTML = '重新開始'
@@ -119,6 +135,9 @@ class Game {
       })
     }
 >>>>>>> 簡易結算畫面
+=======
+
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
     // 送api request
     // recordScore({
     //   pid: window.getCookie('pid'),
@@ -128,6 +147,7 @@ class Game {
 
   // 將物件位置初始化並清空畫布後再開始
   restart () {
+<<<<<<< HEAD
     if(document.getElementsByClassName('played').length === 9){
       location.reload()
     }
@@ -147,6 +167,20 @@ class Game {
         document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
       })
     }
+=======
+    document.getElementById('game-over').style.display = 'none'
+
+    this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)
+    this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
+
+    this.setBackground()
+    this.quiThink.reset()
+
+    document.getElementById('quiMenu').style.display = 'block'
+    document.getElementById('quiMenu').bindAnimation('initMove',2,()=>{
+      document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
+    })
+>>>>>>> 50dcfe589d5fb40d2e98dff73bd944c754c08613
   }
 
   setBackground () {
