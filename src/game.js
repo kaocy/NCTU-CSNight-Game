@@ -14,7 +14,6 @@ class Game {
     this.currentScore = 0
     this.playing = null
     this.init = this.init.bind(this)
-    this.introduce = this.introduce.bind(this)
     this.start = this.start.bind(this)
     this.over = this.over.bind(this)
     this.restart = this.restart.bind(this)
@@ -79,15 +78,9 @@ class Game {
     return true
   }
 
-  introduce () {
-    this.start()
-  }
-
   start () {
-    
     document.getElementById('quiMenu').style.display = 'block'
     document.getElementById('quiMenu').bindAnimation('initMove',2)
-
   }
   
   over () {
@@ -142,6 +135,7 @@ class Game {
   }
 
   addScore (score) {
+    this.currentScore = score
     this.totalScore += score
     // console.log(this.totalScore)
 

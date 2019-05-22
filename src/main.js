@@ -33,7 +33,7 @@ startButton.addEventListener('click', () => {
   window.localStorage.setItem('pid', pid)
 
   document.getElementById('init').style.display = 'none'
-  game.introduce()
+  game.start()
 })
 restartElement.addEventListener('click', game.restart)
 
