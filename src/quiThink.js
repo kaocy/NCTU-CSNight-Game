@@ -134,15 +134,15 @@ class QuiThink {
     if(QUI.qno === 1){
       this.show()
       // show header
-      document.getElementById('quiHeader').bindAnimation('getInto',1,(e)=>{
+      document.getElementById('quiHeader').bindAnimation('getInto',0.5,(e)=>{
         // show timer
-        e.bindAnimation('timerLoad',.5,(e)=>{
+        e.bindAnimation('timerLoad',.2,(e)=>{
           document.getElementById('quiTimer').style.opacity = 1
           // show title
-          e.bindAnimation('TLoad',.5,(e)=>{
-            document.getElementById('quiContent').bindAnimation('QLoad',.5,(e)=>{
+          e.bindAnimation('TLoad',.2,(e)=>{
+            document.getElementById('quiContent').bindAnimation('QLoad',.25,(e)=>{
               document.getElementById('quiQuestion').style.opacity = 1
-              e.bindAnimation('ALoad',.4,()=>{
+              e.bindAnimation('ALoad',.25,()=>{
                 document.getElementById('quiOptions').style.pointerEvents = 'all'
                 document.getElementById('quiOptions').style.opacity = 1
                 this.timer.countdown(
@@ -163,10 +163,10 @@ class QuiThink {
     }
     else{
           // show title
-          document.getElementById('quiContent').bindAnimation('TLoad',.5,(e)=>{
-            e.bindAnimation('QLoad',.5,(e)=>{
+          document.getElementById('quiContent').bindAnimation('TLoad',.2,(e)=>{
+            e.bindAnimation('QLoad',.25,(e)=>{
               document.getElementById('quiQuestion').style.opacity = 1
-              e.bindAnimation('ALoad',.2,()=>{
+              e.bindAnimation('ALoad',.25,()=>{
                 document.getElementById('quiOptions').style.pointerEvents = 'all'
                 document.getElementById('quiOptions').style.opacity = 1
                 this.timer.countdown(
@@ -200,7 +200,7 @@ class QuiThink {
       e.target.style.color = 'white'
       // 更新sideBar分數條
       this.setQuiBar()
-      e.target.bindAnimation('click-true',.3)
+      e.target.bindAnimation('click-true',.15)
     }
     else {
       // Fail
@@ -210,7 +210,7 @@ class QuiThink {
       // 更新sideBar分數條
       this.setQuiBar()
       // 顯示正確答案
-      e.target.bindAnimation('click-false',.3)
+      e.target.bindAnimation('click-false',.15)
     }
     this.resetOption(e)
     // console.log(this.currentScore)
@@ -228,7 +228,13 @@ class QuiThink {
     } else {
       // close
       this.clear()
+<<<<<<< 1b0a7443bd2bf8aafafdbb734e847f453039aa78
       game.addScore(section[QUI.level], this.currentScore) // 一個向度結束後更新遊戲總分
+=======
+      game.addScore(this.currentScore) // 一個向度結束後更新遊戲總分
+      game.currentScore = this.currentScore
+      document.getElementById('game-over').style.display = 'block'
+>>>>>>> 簡易結算畫面
       game.over()
     }
   }

@@ -4,6 +4,8 @@ class Timer {
     this.remain = 0 // remain time
     this.countdown = this.countdown.bind(this)
     this.timeup = this.timeup.bind(this)
+    // for test
+    window.stop = () =>window.clearInterval(this.timer)
   }
 
   countdown (sec, countFn, doneFn) {

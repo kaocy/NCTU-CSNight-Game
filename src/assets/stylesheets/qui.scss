@@ -63,10 +63,10 @@ $COLORS:#3BACB6
     }
     &.slideOut{
         .quiMenuItem:nth-child(odd){
-            animation:slideOutLeft 1.5s;
+            animation:slideOutLeft 1s;
         }
         .quiMenuItem:nth-child(even){
-            animation:slideOutRight 1.5s;
+            animation:slideOutRight 1s;
         }
     }
 }
@@ -112,16 +112,16 @@ $COLORS:#3BACB6
         }
         &.timerLoad{
             #quiTimer{
-                animation: zoomIn2 1s ease-out;
+                animation: zoomIn2 500ms ease-out;
             }
         }
         &.getInto{
             .quiPlayer{
                 &:first-child{
-                    animation: left-up 500ms ease-in;
+                    animation: left-up 250ms ease-in;
                 }
                 &:last-child{
-                    animation: right-up 500ms ease-in;
+                    animation: right-up 250ms ease-in;
                 }
             }
         }
@@ -177,32 +177,35 @@ $COLORS:#3BACB6
                 margin: 4% auto;
                 border-radius: 2px;
                 text-align: center;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 cursor: pointer;
                 &:hover{
                     transition: .3s;
                     background: darken($color,10);
                 }
                 &.click-true{
-                    animation: pulse-true 300ms;
+                    animation: pulse-true 150ms;
                 }
                 &.click-false{
-                    animation: pulse-false 300ms;
+                    animation: pulse-false 150ms;
                 }
             }
         }
         &.TitleLoad{
             #quiTitle{
-                animation: flipInX;
+                animation: flipInX 250ms;
             }
         }
         &.QLoad{
             #quiQuestion{
-                animation: fadeIn 500ms;
+                animation: fadeIn 250ms;
             }
         }
         &.ALoad{
             #quiOptions{
-                animation: bounceIn 800ms;
+                animation: bounceIn 400ms;
             }
         }
     }

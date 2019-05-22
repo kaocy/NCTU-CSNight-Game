@@ -7,7 +7,7 @@ let game = new Game()
 let imageStorage = new ImageStorage()
 let startButton = document.getElementById('start')
 let scoreElement = document.getElementById('score')
-let restartElement = document.getElementById('game-over')
+let restartElement = document.getElementById('return')
 
 // 確認圖片都載入完成
 let checkLoading = window.setInterval(() => {
@@ -64,6 +64,7 @@ const wait = (ms) => (new Promise(r => setTimeout(r, ms)))
 
 HTMLElement.prototype.bindAnimation = async function (animation, time, callback = ()=>{}){
   // 須先將 css keyframe 寫入 stylesheet 中
+  console.log(animation)
   let DOMElement = this
   DOMElement.classList.add(animation)
   await wait(time * 1000)

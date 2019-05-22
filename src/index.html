@@ -21,7 +21,6 @@
         <div id="start">START</div>
     </div>
 
-    <div class="score">SCORE: <span id="score"></span></div>
     <div id="quiMenu">
         <div class="quiMenuItem">白爛題</div>
         <div class="quiMenuItem">電玩知識題</div>
@@ -61,8 +60,17 @@
         </div>
     </div>
     <div class="game-over" id="game-over">
-        GAME OVER
-        <span>Restart</span>
+        <table>
+            <tr id='score1'>
+                <td>此關分數</td>
+                <td id="currentScore">20</td>
+            </tr>
+            <tr id='score2'>
+                <td>結算總分</td>
+                <td id="allScore"></td>
+            </tr>
+        </table>
+        <div class='btn' id='return'>回到主選單</div>
     </div>
 </body>
 </html>

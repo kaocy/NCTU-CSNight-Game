@@ -5,12 +5,13 @@ import QuiThink from 'quiThink'
 import { data, QUI } from './assets/resources/question'
 import { imageStorage } from 'main'
 import { recordScore } from 'api'
-import bindAnimation from 'util'
+import { game } from './main';
 
 // 整體遊戲 包含所有會用到的物件
 class Game {
   constructor () {
     this.totalScore = 0 // 所有向度的總分
+    this.currentScore = 0
     this.playing = null
     this.init = this.init.bind(this)
     this.introduce = this.introduce.bind(this)
@@ -68,6 +69,7 @@ class Game {
           'slideOut',1,
           (self)=> {
             self.style.display = 'none'
+            document.getElementsByClassName('quiMenuItem')[i].style.pointerEvents = 'none'
             this.quiThink.load()
           }
         )
@@ -78,7 +80,6 @@ class Game {
   }
 
   introduce () {
-    document.getElementsByClassName('score')[0].style.display = 'none'
 
     // let text = new Text()
     // text.init('從前從前...', this.start)
@@ -87,15 +88,37 @@ class Game {
   }
 
   start () {
-    // document.getElementsByClassName('score')[0].style.display = 'block'
-
+    
     document.getElementById('quiMenu').style.display = 'block'
     document.getElementById('quiMenu').bindAnimation('initMove',2)
 
   }
-
+  
   over () {
+<<<<<<< 1b0a7443bd2bf8aafafdbb734e847f453039aa78
     document.getElementById('game-over').style.display = 'block'
+=======
+    if(document.getElementsByClassName('played').length === 9){
+      document.getElementById('return').innerHTML = '重新開始'
+      document.getElementById('allScore').innerHTML = this.totalScore
+      document.getElementsByTagName('tr')[1].style.display = 'table-row'
+      document.getElementById('game-over').bindAnimation('Load2',.5,()=>{
+          document.getElementById('return').style.display = 'block'
+        })
+    }
+    else{
+      document.getElementById('allScore').innerHTML = this.totalScore
+      document.getElementById('currentScore').innerHTML = this.currentScore
+      document.getElementsByTagName('tr')[0].style.display = 'table-row'
+      document.getElementById('game-over').bindAnimation('Load1',.5,(e)=>{
+        document.getElementsByTagName('tr')[1].style.display = 'table-row'
+        e.bindAnimation('Load2',0.5,(e)=>{
+          document.getElementById('return').style.display = 'block'
+          e.bindAnimation('Show',.3)
+        })
+      })
+    }
+>>>>>>> 簡易結算畫面
     // 送api request
     // recordScore({
     //   pid: window.getCookie('pid'),
@@ -105,18 +128,25 @@ class Game {
 
   // 將物件位置初始化並清空畫布後再開始
   restart () {
-    document.getElementById('game-over').style.display = 'none'
-
-    this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)
-    this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
-
-    this.setBackground()
-    this.quiThink.reset()
-
-    document.getElementById('quiMenu').style.display = 'block'
-    document.getElementById('quiMenu').bindAnimation('initMove',2,()=>{
-      document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
-    })
+    if(document.getElementsByClassName('played').length === 9){
+      location.reload()
+    }
+    else{
+      document.getElementById('game-over').style.display = 'none'
+      document.getElementsByTagName('tr')[0].style.display = 'none'
+      document.getElementsByTagName('tr')[1].style.display = 'none'
+      document.getElementById('return').style.display = 'none'
+      this.textBgContext.clearRect(0, 0, this.textBgContext.width, this.textBgContext.height)
+      this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height)
+  
+      this.setBackground()
+      this.quiThink.reset()
+  
+      document.getElementById('quiMenu').style.display = 'block'
+      document.getElementById('quiMenu').bindAnimation('initMove',1.5,()=>{
+        document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
+      })
+    }
   }
 
   setBackground () {
