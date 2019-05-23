@@ -130,17 +130,24 @@ class QuiThink {
     // set time
     let showTime = document.getElementById('quiTimer')
     showTime.innerHTML = this.interval
-
+    if(QUI.length === QUI.qno){
+      document.getElementById('quiTitle').innerHTML = '最後一題！！！'
+    }
+    else{
+      document.getElementById('quiTitle').innerHTML = `第 ${QUI.qno} 題`
+    }
     if(QUI.qno === 1){
       this.show()
       // show header
       document.getElementById('quiHeader').bindAnimation('getInto',0.5,(e)=>{
         // show timer
-        e.bindAnimation('timerLoad',.2,(e)=>{
+        e.bindAnimation('timerLoad',.25,()=>{
           document.getElementById('quiTimer').style.opacity = 1
           // show title
-          e.bindAnimation('TLoad',.2,(e)=>{
-            document.getElementById('quiContent').bindAnimation('QLoad',.25,(e)=>{
+          document.getElementById('quiTitle').style.opacity = 0
+          document.getElementById('quiContent').bindAnimation('TitleLoad',.5,(e)=>{
+            document.getElementById('quiTitle').style.opacity = 0
+            e.bindAnimation('QLoad',.25,(e)=>{
               document.getElementById('quiQuestion').style.opacity = 1
               e.bindAnimation('ALoad',.25,()=>{
                 document.getElementById('quiOptions').style.pointerEvents = 'all'
@@ -163,7 +170,9 @@ class QuiThink {
     }
     else{
           // show title
-          document.getElementById('quiContent').bindAnimation('TLoad',.2,(e)=>{
+          document.getElementById('quiTitle').style.opacity = 0
+          document.getElementById('quiContent').bindAnimation('TitleLoad',.5,(e)=>{
+            document.getElementById('quiTitle').style.opacity = 0
             e.bindAnimation('QLoad',.25,(e)=>{
               document.getElementById('quiQuestion').style.opacity = 1
               e.bindAnimation('ALoad',.25,()=>{
@@ -229,6 +238,7 @@ class QuiThink {
       // close
       this.clear()
       game.addScore(section[QUI.level], this.currentScore) // 一個向度結束後更新遊戲總分
+      game.currentScore = this.currentScore
       game.over()
     }
   }
