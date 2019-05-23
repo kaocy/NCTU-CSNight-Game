@@ -7,7 +7,9 @@ class QuiThink {
   constructor (interval = 8) {
     this.interval = interval // 一題的時間
     this.currentScore = 0    // 一個向度的總分
+    this.sidebarScore = 0
     this.continuous = 0        // 連續答對題數
+    this.correctNum = 0
     this.timer = new Timer()
 
     this.show = this.show.bind(this)
@@ -97,7 +99,7 @@ class QuiThink {
   setQuiBar () {
     let numQuestion = data[QUI.level].length
     // 分數條顯示(最大值為1)
-    let leftScore = this.currentScore / QUI.maxScore
+    let leftScore = this.sidebarScore / QUI.maxScore
 
     // let rightScore = this.incorrect / numQuestion
     document.getElementsByClassName('quiBar')[0].pseudoStyle('after', 'height', `${parseInt(leftScore * 100)}%`)
@@ -204,8 +206,14 @@ class QuiThink {
     // 看選對選錯給顏色
     if (e.target.classList.contains('ans')) {
       // Pass
-      this.currentScore += QUI.score[this.timer.remain] * QUI.bonus[this.continuous]
+      this.currentScore += Math.round(QUI.score[this.timer.remain] * QUI.bonus[this.continuous])
+      this.sidebarScore += Math.round(QUI.score[this.timer.remain] * QUI.sidebarBonus[this.correctNum])
+
+      console.log('real score: ', this.currentScore)
+
       this.continuous++
+      this.correctNum++
+
       e.target.style.background = 'rgb(64,204,161)'
       e.target.style.color = 'white'
       // 更新sideBar分數條

@@ -147,7 +147,6 @@ class Game {
   addScore (score) {
     this.currentScore = score
     this.totalScore += score
-    // console.log(this.totalScore)
 
     // 送api request
     recordScore({
