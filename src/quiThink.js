@@ -70,7 +70,7 @@ class QuiThink {
     document.getElementsByClassName('quiOption')[2].removeEventListener('click', this.checkAns)
     document.getElementsByClassName('quiOption')[3].removeEventListener('click', this.checkAns)
     // qui element
-    await (new Promise(r => setTimeout(r, 2*1000)))
+    await (new Promise(r => setTimeout(r, 1*1000)))
     // show ans
     document.getElementsByClassName('quiOption')[0].style.opacity = 0
     document.getElementsByClassName('quiOption')[1].style.opacity = 0
@@ -81,7 +81,7 @@ class QuiThink {
     document.getElementsByClassName('ans')[0].style.opacity = 1
     if(e)
       document.getElementsByClassName('selected')[0].style.opacity = 1
-    await (new Promise(r => setTimeout(r, 1*1000)))
+    await (new Promise(r => setTimeout(r, .5*1000)))
     document.getElementById('quiQuestion').style.opacity = 0
     document.getElementsByClassName('ans')[0].style.opacity = 0
     // 把ans class拿掉 不然下一題會被影響
