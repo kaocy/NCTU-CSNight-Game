@@ -24,6 +24,7 @@ let checkLoading = window.setInterval(() => {
 // handle click event
 startButton.addEventListener('click', () => {
   // fullscreen
+  document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen
   if (document.fullscreenEnabled) {
     requestFullscreen(document.documentElement)
   }
@@ -102,7 +103,6 @@ window.setCookie = function (name, value) {
   document.cookie = name + '=' + escape(value)
 }
 
-document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen
 
 function requestFullscreen(element) {
 	if (element.requestFullscreen) {
