@@ -238,7 +238,7 @@ class QuiThink {
     } else {
       // close
       this.clear()
-      game.addScore(section[QUI.level], this.currentScore) // 一個向度結束後更新遊戲總分
+      game.addScore(this.currentScore) // 一個向度結束後更新遊戲總分
       game.currentScore = this.currentScore
       game.over()
     }
