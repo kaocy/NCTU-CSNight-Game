@@ -136,12 +136,13 @@ class QuiThink {
     else{
       document.getElementById('quiTitle').innerHTML = `第 ${QUI.qno} 題`
     }
+
     if(QUI.qno === 1){
       this.show()
       // show header
       document.getElementById('quiHeader').bindAnimation('getInto',0.5,(e)=>{
         // show timer
-        e.bindAnimation('timerLoad',.25,()=>{
+        e.bindAnimation('timerLoad',.2,()=>{
           document.getElementById('quiTimer').style.opacity = 1
           // show title
           document.getElementById('quiTitle').style.opacity = 0
@@ -209,7 +210,7 @@ class QuiThink {
       e.target.style.color = 'white'
       // 更新sideBar分數條
       this.setQuiBar()
-      e.target.bindAnimation('click-true',.15)
+      e.target.bindAnimation('click-true',.1)
     }
     else {
       // Fail
@@ -219,7 +220,7 @@ class QuiThink {
       // 更新sideBar分數條
       this.setQuiBar()
       // 顯示正確答案
-      e.target.bindAnimation('click-false',.15)
+      e.target.bindAnimation('click-false',.1)
     }
     this.resetOption(e)
     // console.log(this.currentScore)

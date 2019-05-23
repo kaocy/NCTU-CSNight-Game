@@ -22,13 +22,22 @@ canvas {
         width: 150px;
         z-index: 15;
     }
+    #name {
+        color: white;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%,-50%);
+        font-size: 42px;
+        z-index: 15;
+    }
     #start {
         color: white;
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%,-50%);
-        font-size: 50px;
+        font-size: 32px;
         z-index: 15;
     }
 }

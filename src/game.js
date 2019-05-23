@@ -14,7 +14,6 @@ class Game {
     this.currentScore = 0
     this.playing = null
     this.init = this.init.bind(this)
-    this.introduce = this.introduce.bind(this)
     this.start = this.start.bind(this)
     this.over = this.over.bind(this)
     this.restart = this.restart.bind(this)
@@ -145,14 +144,14 @@ class Game {
     this.background.init(0, 0, this.bgCanvas.width, this.bgCanvas.height)
   }
 
-  addScore (section, score) {
+  addScore (score) {
+    this.currentScore = score
     this.totalScore += score
     // console.log(this.totalScore)
 
     // 送api request
     recordScore({
       pid: window.localStorage.getItem('pid'),
-      section: section,
       score: this.totalScore
     })
   }
