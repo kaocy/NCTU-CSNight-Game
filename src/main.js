@@ -25,7 +25,7 @@ let checkLoading = window.setInterval(() => {
 startButton.addEventListener('click', () => {
   // fullscreen
   if (document.fullscreenEnabled) {
-    //requestFullscreen(document.documentElement)
+    requestFullscreen(document.documentElement)
   }
   // 把player_id存在cookie
   let pid = document.getElementById('pid').value

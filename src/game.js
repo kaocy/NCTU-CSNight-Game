@@ -78,9 +78,19 @@ class Game {
     return true
   }
 
+  introduce () {
+
+    // let text = new Text()
+    // text.init('從前從前...', this.start)
+    // text.register()
+    this.start()
+  }
+
   start () {
+    
     document.getElementById('quiMenu').style.display = 'block'
     document.getElementById('quiMenu').bindAnimation('initMove',2)
+
   }
   
   over () {

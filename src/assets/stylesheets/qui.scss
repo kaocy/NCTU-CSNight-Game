@@ -138,14 +138,11 @@ $COLORS:#3BACB6
         #quiTitle{
             position: absolute;
             user-select: none;
-            left: 0;
-            top: 30%;
-            #label{
-                
-            }
-            #number{
-
-            }
+            top: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 3rem;
+            opacity: 0;
         }
         #quiQuestion{
             position: fixed;
@@ -195,7 +192,7 @@ $COLORS:#3BACB6
         }
         &.TitleLoad{
             #quiTitle{
-                animation: flipInX 250ms;
+                animation: fadeInUp 500ms;
             }
         }
         &.QLoad{
