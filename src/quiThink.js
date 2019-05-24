@@ -212,10 +212,11 @@ class QuiThink {
       this.sidebarScore += Math.round(QUI.score[this.timer.remain] * QUI.sidebarBonus[this.correctNum])
 
       document.getElementById('showScore').innerHTML = this.currentScore
-
+      console.log(this.continuous)
+      document.getElementById('score_bonus').innerHTML = QUI.bonus[this.continuous]
       this.continuous++
       document.getElementById('continuous').innerHTML = this.continuous
-      document.getElementById('score_bonus').innerHTML = QUI.bonus[this.continuous]
+      
 
       this.correctNum++
 
