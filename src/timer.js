@@ -13,7 +13,7 @@ class Timer {
     this.timer = window.setInterval(() => {
       this.remain--
       countFn(this.remain)
-      if (this.remain === 0) {
+      if (this.remain <= 0) {
         this.timeup()
         doneFn()
       }

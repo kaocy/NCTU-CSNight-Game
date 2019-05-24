@@ -135,6 +135,32 @@ $COLORS:#3BACB6
         width: 100%;
         font-size: 1.2rem;
         padding-top: 5%;
+        #quiCon{
+            position: absolute;
+            user-select: none;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 3rem;
+            color: white;
+            background: #ff3434d6;
+            width: 100%;
+            display: none;
+            z-index: 100;
+            &.slideIn{
+                animation: lightSpeedIn 500ms;
+            }
+            &.slideOut{
+                animation: lightSpeedOut 200ms;
+            }
+            #money{
+                position: absolute;
+                right: 0;
+                top: -0.5rem;
+                font-size: 1rem;
+                background: #b21313;
+            }
+        }
         #quiTitle{
             position: absolute;
             user-select: none;
@@ -216,6 +242,13 @@ $COLORS:#3BACB6
             box-sizing: border-box;
             border: 2px solid rgba(255,255,255,.4);
             border-radius: 2px;
+            #showScore{
+                position: absolute;
+                font-size: 1rem;
+                top: -2.1rem;
+                left: 50%;
+                transform: translateX(-50%);
+            }
             &::after{
                 content: "";
                 position: absolute;
@@ -225,7 +258,7 @@ $COLORS:#3BACB6
                 border: 2px solid transparent;
                 width: 3vw;
                 box-sizing: border-box;
-                transition: ease-out;
+                transition: 1s;
             }
             &:first-child{
                 left: 4%;

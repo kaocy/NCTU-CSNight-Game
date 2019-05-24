@@ -59,7 +59,9 @@ class QuiThink {
 
   reset () {
     QUI.qno = 0
+    document.getElementById('showScore').innerHTML = 0
     this.currentScore = 0
+    this.sidebarScore = 0
     this.continuous = 0
     this.setQuiBar()
   }
@@ -209,16 +211,31 @@ class QuiThink {
       this.currentScore += Math.round(QUI.score[this.timer.remain] * QUI.bonus[this.continuous])
       this.sidebarScore += Math.round(QUI.score[this.timer.remain] * QUI.sidebarBonus[this.correctNum])
 
-      console.log('real score: ', this.currentScore)
+      document.getElementById('showScore').innerHTML = this.currentScore
 
       this.continuous++
+      document.getElementById('continuous').innerHTML = this.continuous
+      document.getElementById('score_bonus').innerHTML = QUI.bonus[this.continuous]
+
       this.correctNum++
 
       e.target.style.background = 'rgb(64,204,161)'
       e.target.style.color = 'white'
       // 更新sideBar分數條
       this.setQuiBar()
-      e.target.bindAnimation('click-true',.1)
+      e.target.bindAnimation('click-true',.1,()=>{
+        if(this.continuous >= 2){
+          // show 連續答對
+          document.getElementById('quiCon').style.display ='block'
+          document.getElementById('quiCon').bindAnimation('slideIn',.5,async (e)=>{
+            await (new Promise(r => setTimeout(r, 500)))
+            e.bindAnimation('slideOut',0.2,()=>{
+              document.getElementById('quiCon').style.display = 'none'
+            })
+          })
+        }
+      })
+      
     }
     else {
       // Fail

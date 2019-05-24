@@ -132,7 +132,7 @@ class Game {
   
       this.setBackground()
       this.quiThink.reset()
-  
+      
       document.getElementById('quiMenu').style.display = 'block'
       document.getElementById('quiMenu').bindAnimation('initMove',1.5,()=>{
         document.getElementsByClassName('quiMenuItem')[this.playing].classList.add('played')
