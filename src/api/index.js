@@ -2,11 +2,11 @@
 import axios from 'axios'
 
 export const recordScore = (payload) => {
-  console.log(payload)
+  let data = new FormData()
+  data.append('pid',payload.pid)
+  data.append('score', payload.score)
   axios
-    .get(`${SERVER_URL}/api/score_board/record`, {
-      params: payload
-    })
+    .post(`${SERVER_URL}/api/score_board/record`, data)
     .then(() => console.log('success'))
     .catch((error) => console.log(error))
 }
