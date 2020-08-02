@@ -1,4 +1,4 @@
-## NCTU-CS-Galaxian game
+## NCTU-CSNight-Game
 
 ### 安裝套件
 - yarn install
